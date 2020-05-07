@@ -1,1 +1,24 @@
 @import './../../../styles.less';
+
+@NavbarBackgroundColor: @Color1;
+@NavbarFontColor: @Color2;
+
+#navbarContainer {
+  background-color: @NavbarBackgroundColor;
+  min-height: 50px;
+
+  & a {
+    text-decoration: none;
+    color: @NavbarFontColor;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  & span {
+    color: @NavbarFontColor;
+  }
+
+  .logo-container {
+    width: 150px;
+  }
+}
