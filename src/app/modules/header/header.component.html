@@ -1,18 +1,14 @@
-<div
-  id="navbarContainer"
-  class="d-flex flex-row justify-content-start align-items-end"
->
-  <div class="logo-container mb-2 ml-3">
-    <span>TEK-SYSTEM</span>
+<header id="navbarContainer" class="d-flex align-items-stretch">
+  <div class="d-flex align-items-end">
+    <a routerLink="/" [routerLinkActive]="['active']">
+      Home
+    </a>
+    <a routerLink="/recorder">Rejestrator</a>
+    <a routerLink="/my-work">Moja praca</a>
+    <a routerLink="/leaves">Nieobecności</a>
+    <a routerLink="/office">Biuro</a>
+    <a routerLink="/projects">Projekty</a>
+    <a routerLink="/employees">Pracownicy</a>
+    <a routerLink="/reports">Raporty</a>
   </div>
-  <div class="mb-2">
-      <a routerLink="/">Strona główna</a>
-      <a routerLink="/recorder">Rejestrator</a>
-      <a routerLink="/my-work">Moja praca</a>
-      <a routerLink="/leaves">Nieobecności</a>
-      <a routerLink="/office">Biuro</a>
-      <a routerLink="/projects">Projekty</a>
-      <a routerLink="/employees">Pracownicy</a>
-      <a routerLink="/reports">Raporty</a>
-  </div>
-</div>
+</header>

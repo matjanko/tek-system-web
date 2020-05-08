@@ -2,23 +2,45 @@
 
 @NavbarBackgroundColor: @Color1;
 @NavbarFontColor: @Color2;
+@NavbarActiveFontColor: @Color1;
+@NavbarActiveLinkColor: @Color2;
+@NavbarHoverLinkColor: @Color3;
 
 #navbarContainer {
+  font-size: 14px;
+  white-space: nowrap;
+  height: 50px;
   background-color: @NavbarBackgroundColor;
-  min-height: 50px;
 
-  & a {
-    text-decoration: none;
-    color: @NavbarFontColor;
+  & div {
     margin-left: 15px;
     margin-right: 15px;
   }
 
-  & span {
+  & a {
+    text-align: center;
+    min-width: 100px;
+
+    text-decoration: none;
     color: @NavbarFontColor;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    &:hover {
+      background-color: @NavbarHoverLinkColor;
+    }
+
+    &.active {
+      color: @NavbarActiveFontColor;
+      background-color: @NavbarActiveLinkColor;
+    }
   }
 
-  .logo-container {
-    width: 150px;
+  & label {
+    color: @NavbarFontColor;
+    font-weight: 400;
+    font-size: 18px;
   }
 }
