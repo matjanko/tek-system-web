@@ -1,14 +1,22 @@
 <header id="navbarContainer" class="d-flex align-items-stretch">
   <div class="d-flex align-items-end">
-    <a routerLink="/" [routerLinkActive]="['active']">
+    <a
+      routerLink="/"
+      [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{ exact: true}"
+    >
       Home
     </a>
     <a routerLink="/recorder">Rejestrator</a>
     <a routerLink="/my-work">Moja praca</a>
     <a routerLink="/leaves">Nieobecności</a>
-    <a routerLink="/office">Biuro</a>
-    <a routerLink="/projects">Projekty</a>
-    <a routerLink="/employees">Pracownicy</a>
+    <a
+      routerLink="/office"
+      [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{ exact: false}"
+    >
+      Pracownia
+    </a>
     <a routerLink="/reports">Raporty</a>
   </div>
 </header>
