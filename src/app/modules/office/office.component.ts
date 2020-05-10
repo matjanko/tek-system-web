@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CustomerFormComponent } from './components/customer-form/customer-form.component';
+import { ProjectFormComponent } from './components/project-form/project-form.component';
 
 @Component({
   selector: 'app-office',
@@ -17,7 +18,7 @@ export class OfficeComponent implements OnInit {
   }
 
   newProjectButtonClick(): void {
-
+    const dialogRef = this.dialog.open(ProjectFormComponent, this.getDialogConfig());
   }
 
   newCustomerButtonClick(): void {

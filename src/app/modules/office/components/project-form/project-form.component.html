@@ -1,0 +1,20 @@
+<h4 mat-dialog-title>Nowy projekt</h4>
+<div mat-dialog-content id="project-form-content">
+  <mat-form-field>
+    <mat-label>Zleceniodawca</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let customer of customers" [value]="customer.id">
+        {{ customer.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Nazwa</mat-label>
+    <input matInput #projectName maxlength="30">
+    <mat-hint align="end">{{projectName.value.length}} / 30</mat-hint>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions style="width: 100%;">
+  <button mat-button>Zapisz</button>
+  <button mat-button (click)="onCancelButtonClick()">Anuluj</button>
+</div>
