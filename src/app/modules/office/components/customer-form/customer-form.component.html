@@ -1,9 +1,12 @@
-<h4 mat-dialog-title>Dodawanie nowego zleceniodawcy</h4>
-<div mat-dialog-content>
-  <label>Nazwa zleceniodawcy</label>
-  <input type="text">
+<h4 mat-dialog-title>Nowy zleceniodawca</h4>
+<div mat-dialog-content style="height: 100px;">
+  <mat-form-field style="width: 300px;">
+    <mat-label>Nazwa</mat-label>
+    <input matInput #customerName maxlength="50">
+    <mat-hint align="end">{{customerName.value.length}} / 50</mat-hint>
+  </mat-form-field>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions style="width: 100%;">
   <button mat-button>Zapisz</button>
   <button mat-button (click)="onCancelButtonClick()">Anuluj</button>
 </div>
