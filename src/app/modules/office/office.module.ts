@@ -5,6 +5,7 @@ import { ProjectListComponent } from './components/project-list/project-list.com
 import { CustomerFormComponent } from './components/customer-form/customer-form.component';
 import { MaterialModule } from '../shared/material.module';
 import { ProjectFormComponent } from './components/project-form/project-form.component';
+import { CustomerListComponent } from './components/customer-list/customer-list.component';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { ProjectFormComponent } from './components/project-form/project-form.com
     OfficeComponent,
     ProjectListComponent,
     CustomerFormComponent,
-    ProjectFormComponent
+    ProjectFormComponent,
+    CustomerListComponent
   ],
   imports: [
     CommonModule,
