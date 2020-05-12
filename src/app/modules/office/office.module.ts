@@ -6,6 +6,9 @@ import { CustomerFormComponent } from './components/customer-form/customer-form.
 import { MaterialModule } from '../../shared/modules/material/material.module';
 import { ProjectFormComponent } from './components/project-form/project-form.component';
 import { CustomerListComponent } from './components/customer-list/customer-list.component';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { OfficeNavBarComponent } from './components/office-nav-bar/office-nav-bar.component';
+import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 
 
 @NgModule({
@@ -14,10 +17,13 @@ import { CustomerListComponent } from './components/customer-list/customer-list.
     ProjectListComponent,
     CustomerFormComponent,
     ProjectFormComponent,
-    CustomerListComponent
+    CustomerListComponent,
+    OfficeNavBarComponent,
+    EmployeeListComponent
   ],
   imports: [
     CommonModule,
+    AppRoutingModule,
     MaterialModule
   ]
 })

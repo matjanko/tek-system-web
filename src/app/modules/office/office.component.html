@@ -1,4 +1,8 @@
-<button mat-button color="primary" (click)="newCustomerButtonClick()">Nowy zleceniodawca</button>
-<button (click)="newProjectButtonClick()">Nowy projekt</button>
-<app-customer-list></app-customer-list>
-<app-project-list></app-project-list>
+<div class="container-fluid">
+  <div class="col-xs-12">
+    <app-office-nav-bar></app-office-nav-bar>
+  </div>
+  <div class="col-xs-12 mt-5">
+    <router-outlet></router-outlet>
+  </div>
+</div>

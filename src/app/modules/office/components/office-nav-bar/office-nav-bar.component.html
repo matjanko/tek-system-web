@@ -1,0 +1,13 @@
+<div class="office-nav-tab-container">
+  <nav mat-tab-nav-bar [backgroundColor]="">
+    <a
+      mat-tab-link
+      *ngFor="let link of links"
+      [routerLink]="link.href"
+      (click)="activeLink = link"
+      [active]="activeLink == link"
+    >
+      {{ link.name }}
+    </a>
+  </nav>
+</div>
