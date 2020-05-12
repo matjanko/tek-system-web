@@ -3,7 +3,7 @@ import { Project } from 'src/app/core/contracts/model/project';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProjectService } from 'src/app/core/contracts/services/project.service';
 import { MatSort } from '@angular/material/sort';
-import { NestedMatTableDataSource } from 'src/app/modules/shared/material/nested-mat-table-data-source';
+import { NestedMatTableDataSource } from 'src/app/shared/modules/material/nested-mat-table-data-source';
 
 @Component({
   selector: 'app-project-list',
