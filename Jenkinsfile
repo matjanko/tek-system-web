@@ -1,4 +1,6 @@
 node {
+  def container
+
   stage('Checkout') {
     checkout scm
   }
@@ -9,5 +11,21 @@ node {
         npm run build
       '''
     }
+  }
+  stage('Docker build') {
+    container = docker.build('tek-system-web:$BUILD_NUMBER')
+  }
+  stage('Docker stop') {
+    try {
+      sh '''
+        docker stop tek-system-web
+        docker rm tek-system-web
+      '''
+    } catch (Exception e) {
+      e.getMessage()
+    }
+  }
+  stage('Docker run') {
+    container.run('-p 8181:8181 --name tek-system-web --restart=always')
   }
 }
