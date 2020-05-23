@@ -3,10 +3,10 @@ node {
     checkout scm
   }
   stage('NPM Install & NG Build') {
-    docker.image('teracy/angular-cli').inside() {
+    docker.image('node:12.16.1-alpine').inside() {
       sh '''
         npm install
-        ng build
+        npm run build
       '''
     }
   }
