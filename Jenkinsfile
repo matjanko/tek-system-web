@@ -6,7 +6,7 @@ node {
     docker.image('node:6-alpine').inside() {
       sh '''
         npm install
-        npm install -g @angular/cli
+        npm install @angular/cli
         ng build
       '''
     }
