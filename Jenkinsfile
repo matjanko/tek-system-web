@@ -26,6 +26,6 @@ node {
     }
   }
   stage('Docker run') {
-    container.run('-p 8181:8181 --name tek-system-web --restart=always')
+    container.run('-p 9595:80 --name tek-system-web --restart=always')
   }
 }
