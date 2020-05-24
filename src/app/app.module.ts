@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -8,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { ReportsModule } from './modules/reports/reports.module';
 import { HomeModule } from './modules/home/home.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,8 @@ import { HomeModule } from './modules/home/home.module';
     BrowserAnimationsModule,
     MaterialModule,
     ReportsModule,
-    HomeModule
+    HomeModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
