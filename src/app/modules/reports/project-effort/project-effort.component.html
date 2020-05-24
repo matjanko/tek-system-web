@@ -2,7 +2,10 @@
   <label>Podsumowanie projektów</label>
 </div>
 <div class="table-container">
-  <div class="mat-elevation-z8" matSort>
+  <ng-template #progressSpinner>
+    <mat-spinner></mat-spinner>
+  </ng-template>
+  <div class="mat-elevation-z8" matSort *ngIf="projectEfforts, else progressSpinner">
     <table mat-table [dataSource]="dataSource" >
 
       <ng-container matColumnDef="projectSymbol">

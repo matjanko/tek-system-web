@@ -3,6 +3,7 @@ import { ProjectEffort } from './models/project-effort';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ProjectEffortService } from './services/project-effort.service';
 
 
 @Component({
@@ -20,20 +21,23 @@ export class ProjectEffortComponent implements OnInit {
     'projectId'
   ]
 
-  dataSource = new MatTableDataSource(data);
+  projectEfforts: Array<ProjectEffort>;
+  dataSource: MatTableDataSource<ProjectEffort>;
+
   faCircle = faCircle;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor() { }
+  constructor(
+    private projectEffortService: ProjectEffortService
+  ) { }
 
   ngOnInit(): void {
-    this.dataSource.sort = this.sort;
+    this.projectEffortService.getAll().subscribe((resp: Array<ProjectEffort>) => {
+        this.projectEfforts = resp;
+        this.dataSource = new MatTableDataSource(this.projectEfforts);
+        this.dataSource.sort = this.sort;
+      }
+    )
   }
-
 }
-
-const data: ProjectEffort[] = [
-  { projectId: 5, projectSymbol: 'T0150', projectName: 'Testowy projekt 1', customerName: 'Apa hubka', hours: 4500, hasProgress: true },
-  { projectId: 10, projectSymbol: 'T0190', projectName: 'Testowy projekt 2221', customerName: 'Apa 222hubka', hours: 45200, hasProgress: false },
-]
