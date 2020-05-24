@@ -4,6 +4,7 @@ import { ReportsComponent } from './reports.component';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProjectEffortComponent } from './project-effort/project-effort.component';
+import { MaterialModule } from 'src/app/material.module';
 
 
 
@@ -14,6 +15,8 @@ import { ProjectEffortComponent } from './project-effort/project-effort.componen
   ],
   imports: [
     CommonModule,
+    FontAwesomeModule,
+    MaterialModule,
     AppRoutingModule,
     FontAwesomeModule
   ]
