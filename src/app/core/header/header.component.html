@@ -3,7 +3,12 @@
     TEK-SYSTEM
   </div>
   <div class="header-tabs">
-    <a>Raporty</a>
+    <a routerLink="/" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true}">
+      Home
+    </a>
+    <a routerLink="/reports" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false}">
+      Raporty
+    </a>
   </div>
   <div class="header-controls">
     Login

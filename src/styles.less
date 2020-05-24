@@ -30,10 +30,16 @@ header {
     margin-right: 40px;
     display: flex;
     a {
+      color: @color2;
       align-self: flex-end;
-      padding: 10px 20px 10px 20px;
+      padding: 5px 20px 5px 20px;
+      text-decoration: none;
       &:hover {
         background-color: @color3;
+      }
+      &.active {
+        color: @color1;
+        background-color: @color2;
       }
     }
   }
