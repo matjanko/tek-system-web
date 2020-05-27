@@ -30,7 +30,9 @@ export class ProjectEffortComponent implements OnInit {
 
   constructor(
     private projectEffortService: ProjectEffortService
-  ) { }
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.projectEffortService.getAll().subscribe((resp: Array<ProjectEffort>) => {

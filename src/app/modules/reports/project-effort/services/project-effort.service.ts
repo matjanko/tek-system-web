@@ -12,6 +12,6 @@ export class ProjectEffortService {
   ) { }
 
   getAll() {
-    return this.httpClient.get("http://192.168.137.148:9090/api/effort/projects");
+    return this.httpClient.get("http://localhost:9090/api/effort/projects");
   }
 }

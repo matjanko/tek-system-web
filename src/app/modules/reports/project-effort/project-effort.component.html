@@ -5,7 +5,7 @@
   <ng-template #progressSpinner>
     <mat-spinner></mat-spinner>
   </ng-template>
-  <div class="mat-elevation-z8" matSort *ngIf="projectEfforts, else progressSpinner">
+  <div class="mat-elevation-z8" *ngIf="projectEfforts, else progressSpinner" matSort>
     <table mat-table [dataSource]="dataSource" >
 
       <ng-container matColumnDef="projectSymbol">
