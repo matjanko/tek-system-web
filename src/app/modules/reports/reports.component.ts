@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { faChartBar } from '@fortawesome/free-solid-svg-icons';
 import { SidebarItem } from 'src/app/core/sidebar/models/sidebar-item';
-import { icon } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-reports',
@@ -27,9 +26,6 @@ export class ReportsComponent implements OnInit {
       tooltip: 'Raport z projektu'
     },
   )
-
-  faBuilding = faBuilding;
-  faChartBar = faChartBar;
 
   constructor() { }
 
