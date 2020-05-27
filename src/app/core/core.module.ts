@@ -3,18 +3,23 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from '../app-routing.module';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CommonModule
+    CommonModule,
+    FontAwesomeModule
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    SidebarComponent
   ]
 })
 export class CoreModule { }

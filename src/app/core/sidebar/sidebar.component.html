@@ -1,0 +1,9 @@
+<div class="left-sidebar-panel">
+  <div>
+    <div *ngFor="let item of items">
+      <a [routerLink]="item.routerLink" [routerLinkActive]="item.routerLinkActive" [routerLinkActiveOptions]="item.routerLinkActiveOptions">
+        <fa-icon [icon]="item.icon"></fa-icon>
+      </a>
+    </div>
+  </div>
+</div>

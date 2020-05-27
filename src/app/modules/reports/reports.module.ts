@@ -6,6 +6,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProjectEffortComponent } from './project-effort/project-effort.component';
 import { MaterialModule } from 'src/app/material.module';
 import { HttpClientModule } from '@angular/common/http';
+import { CoreModule } from 'src/app/core/core.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
     FontAwesomeModule,
     MaterialModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    CoreModule
   ]
 })
 export class ReportsModule { }

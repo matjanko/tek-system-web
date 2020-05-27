@@ -1,13 +1,4 @@
-<div class="left-sidebar-panel">
-  <div>
-    <a routerLink="/reports/projects" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true}">
-      <fa-icon [icon]="faChartBar">test</fa-icon>
-    </a>
-    <a routerLink="/reports/project" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: false}">
-      <fa-icon [icon]="faBuilding">test</fa-icon>
-    </a>
-  </div>
-</div>
+<app-sidebar [items]="sidebarItems"></app-sidebar>
 <div class="page-container">
   <router-outlet></router-outlet>
 </div>
