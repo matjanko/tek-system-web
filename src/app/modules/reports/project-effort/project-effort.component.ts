@@ -23,7 +23,7 @@ export class ProjectEffortComponent implements OnInit {
 
   projectEfforts: Array<ProjectEffort>;
   dataSource: MatTableDataSource<ProjectEffort>;
-
+  isLoading: boolean = true;
   faCircle = faCircle;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -39,6 +39,7 @@ export class ProjectEffortComponent implements OnInit {
         this.projectEfforts = resp;
         this.dataSource = new MatTableDataSource(this.projectEfforts);
         this.dataSource.sort = this.sort;
+        this.isLoading = false;
       }
     )
   }

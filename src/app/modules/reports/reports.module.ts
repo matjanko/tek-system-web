@@ -21,7 +21,7 @@ import { CoreModule } from 'src/app/core/core.module';
     MaterialModule,
     AppRoutingModule,
     FontAwesomeModule,
-    CoreModule
+    CoreModule,
   ]
 })
 export class ReportsModule { }
