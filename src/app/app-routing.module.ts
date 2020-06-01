@@ -4,6 +4,7 @@ import { HomeComponent } from './modules/home/home.component';
 import { ReportsComponent } from './modules/reports/reports.component';
 import { ProjectEffortComponent } from './modules/reports/project-effort/project-effort.component';
 import { OfficeComponent } from './modules/office/office.component';
+import { WorkTimeComponent } from './modules/reports/work-time/work-time.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: 'projects',
         component: ProjectEffortComponent
+      },
+      {
+        path: 'work-time',
+        component: WorkTimeComponent
       }
     ]
   }

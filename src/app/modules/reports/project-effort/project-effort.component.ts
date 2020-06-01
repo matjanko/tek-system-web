@@ -18,7 +18,7 @@ export class ProjectEffortComponent implements OnInit {
     'projectName',
     'hours',
     'hasProgress',
-    'projectId'
+    // 'projectId'
   ]
 
   projectEfforts: Array<ProjectEffort>;

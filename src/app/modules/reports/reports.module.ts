@@ -7,12 +7,15 @@ import { ProjectEffortComponent } from './project-effort/project-effort.componen
 import { MaterialModule } from 'src/app/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from 'src/app/core/core.module';
+import { WorkTimeComponent } from './work-time/work-time.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
   declarations: [
     ReportsComponent,
-    ProjectEffortComponent
+    ProjectEffortComponent,
+    WorkTimeComponent
   ],
   imports: [
     CommonModule,
@@ -22,6 +25,7 @@ import { CoreModule } from 'src/app/core/core.module';
     AppRoutingModule,
     FontAwesomeModule,
     CoreModule,
+    SharedModule
   ]
 })
 export class ReportsModule { }

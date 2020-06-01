@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { faChartBar } from '@fortawesome/free-solid-svg-icons';
+import { faUserClock } from '@fortawesome/free-solid-svg-icons';
 import { SidebarItem } from 'src/app/core/sidebar/models/sidebar-item';
 
 @Component({
@@ -19,11 +19,11 @@ export class ReportsComponent implements OnInit {
       tooltip: 'Podsumowanie projektów'
     },
     {
-      icon: faBuilding,
-      routerLink: "/reports/project",
+      icon: faUserClock,
+      routerLink: "/reports/work-time",
       routerLinkActive: ['active'],
       routerLinkActiveOptions: { exact: false},
-      tooltip: 'Raport z projektu'
+      tooltip: 'Czas pracy'
     },
   )
 
