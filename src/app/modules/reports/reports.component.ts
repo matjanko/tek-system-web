@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { faChartBar } from '@fortawesome/free-solid-svg-icons';
 import { faUserClock } from '@fortawesome/free-solid-svg-icons';
 import { SidebarItem } from 'src/app/core/sidebar/models/sidebar-item';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reports',
@@ -27,9 +28,10 @@ export class ReportsComponent implements OnInit {
     },
   )
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.router.navigate(['reports', 'projects']);
   }
 
 }
