@@ -10,11 +10,12 @@ import { ProjectsComponent } from './projects/projects.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { CustomersComponent } from './customers/customers.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CustomerListComponent } from './customers/components/customer-list/customer-list.component';
 
 
 
 @NgModule({
-  declarations: [OfficeComponent, ProjectsComponent, EmployeesComponent, CustomersComponent],
+  declarations: [OfficeComponent, ProjectsComponent, EmployeesComponent, CustomersComponent, CustomerListComponent],
   imports: [
     CommonModule,
     MaterialModule,
