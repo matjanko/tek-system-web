@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SidebarItem } from 'src/app/core/sidebar/models/sidebar-item';
-import { faUserClock } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBuilding } from '@fortawesome/free-solid-svg-icons';
+import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-office',
@@ -11,21 +14,21 @@ export class OfficeComponent implements OnInit {
 
   sidebarItems: Array<SidebarItem> = Array(
     {
-      icon: faUserClock,
+      icon: faBuilding,
       routerLink: "/office/projects",
       routerLinkActive: ['active'],
       routerLinkActiveOptions: { exact: true},
       tooltip: 'Projekty'
     },
     {
-      icon: faUserClock,
+      icon: faBriefcase,
       routerLink: "/office/customers",
       routerLinkActive: ['active'],
       routerLinkActiveOptions: { exact: false},
       tooltip: 'Zleceniodawcy'
     },
     {
-      icon: faUserClock,
+      icon: faUser,
       routerLink: "/office/employees",
       routerLinkActive: ['active'],
       routerLinkActiveOptions: { exact: false},
@@ -33,9 +36,9 @@ export class OfficeComponent implements OnInit {
     },
   )
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-  }
 
+  }
 }

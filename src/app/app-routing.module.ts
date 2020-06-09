@@ -5,6 +5,9 @@ import { ReportsComponent } from './modules/reports/reports.component';
 import { ProjectEffortComponent } from './modules/reports/project-effort/project-effort.component';
 import { OfficeComponent } from './modules/office/office.component';
 import { WorkTimeComponent } from './modules/reports/work-time/work-time.component';
+import { ProjectsComponent } from './modules/office/projects/projects.component';
+import { CustomersComponent } from './modules/office/customers/customers.component';
+import { EmployeesComponent } from './modules/office/employees/employees.component';
 
 
 const routes: Routes = [
@@ -14,7 +17,21 @@ const routes: Routes = [
   },
   {
     path: 'office',
-    component: OfficeComponent
+    component: OfficeComponent,
+    children: [
+      {
+        path: 'projects',
+        component: ProjectsComponent
+      },
+      {
+        path: 'customers',
+        component: CustomersComponent
+      },
+      {
+        path: 'employees',
+        component: EmployeesComponent
+      },
+    ]
   },
   {
     path: 'reports',

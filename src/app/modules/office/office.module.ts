@@ -6,18 +6,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CoreModule } from 'src/app/core/core.module';
+import { ProjectsComponent } from './projects/projects.component';
+import { EmployeesComponent } from './employees/employees.component';
+import { CustomersComponent } from './customers/customers.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
 @NgModule({
-  declarations: [OfficeComponent],
+  declarations: [OfficeComponent, ProjectsComponent, EmployeesComponent, CustomersComponent],
   imports: [
     CommonModule,
     MaterialModule,
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    CoreModule
+    CoreModule,
+    SharedModule
   ],
   exports: [
     OfficeComponent
