@@ -13,13 +13,9 @@ import { Subscription } from 'rxjs';
 export class CustomerListComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
 
-  columns = [
-    'customerName',
-    'customerId'
-  ]
-
-  customers: Array<Customer>;
+  customers: Array<Customer> = new Array<Customer>();
   dataSource: MatTableDataSource<Customer>;
+  columns: Array<string> = ['name', 'id']
   isLoading: boolean = true;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
