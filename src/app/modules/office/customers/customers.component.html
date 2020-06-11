@@ -1,5 +1,8 @@
 <app-page-title title="Zleceniodawcy"></app-page-title>
-<div class="container-fluid">
+<div class="spinner" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="container-fluid" [hidden]="isLoading">
   <div class="row">
     <div class="col-sm-5 pl-0">
       <app-customer-list></app-customer-list>
