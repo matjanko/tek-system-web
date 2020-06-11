@@ -15,7 +15,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   customers: Array<Customer> = new Array<Customer>();
   dataSource: MatTableDataSource<Customer>;
-  columns: Array<string> = ['name', 'id']
+  columns: Array<string> = ['name']
   isLoading: boolean = true;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
