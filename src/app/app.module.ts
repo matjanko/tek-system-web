@@ -14,6 +14,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { OfficeModule } from './modules/office/office.module';
 import { SharedModule } from './shared/shared.module';
+import { LoaderService } from './core/loader/loader.service';
+import { LoaderInterceptor } from './core/loader/loader.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,13 @@ import { SharedModule } from './shared/shared.module';
     OfficeModule,
     SharedModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
