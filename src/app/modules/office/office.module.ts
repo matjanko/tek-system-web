@@ -11,6 +11,10 @@ import { EmployeesComponent } from './employees/employees.component';
 import { CustomersComponent } from './customers/customers.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CustomerListComponent } from './customers/components/customer-list/customer-list.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromCustomers from './customers/state/customer.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { CustomerEffects } from './customers/state/customer.effects';
 
 
 
@@ -23,7 +27,9 @@ import { CustomerListComponent } from './customers/components/customer-list/cust
     AppRoutingModule,
     FontAwesomeModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    StoreModule.forFeature('customerState', fromCustomers.reducer),
+    EffectsModule.forFeature([CustomerEffects])
   ],
   exports: [
     OfficeComponent

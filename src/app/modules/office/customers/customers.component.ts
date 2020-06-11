@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Customer } from './models/customer';
+import { Store } from '@ngrx/store';
+import * as fromCustomers from './state/customer.reducer';
+import * as CustomerActions from './state/customer.actions';
 
 @Component({
   selector: 'app-customers',
@@ -8,13 +10,10 @@ import { Customer } from './models/customer';
 })
 export class CustomersComponent implements OnInit {
 
-  customers = Array<Customer>();
-  isLoading: boolean;
-
-  constructor() { }
+  constructor(private store: Store<fromCustomers.State>) { }
 
   ngOnInit(): void {
-
+    this.store.dispatch(CustomerActions.getCustomers());
   }
 
 }

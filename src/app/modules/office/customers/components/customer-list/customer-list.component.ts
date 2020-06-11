@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { CustomerService } from '../../services/customer.service';
-import { Customer } from '../../models/customer';
+import { Component, OnInit, ViewChild, OnDestroy, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
+import * as fromCustomers from '../../state/customer.reducer';
+import { Customer } from '../../state/customer.model';
+import { Store, select } from '@ngrx/store';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-customer-list',
@@ -12,27 +14,25 @@ import { Subscription } from 'rxjs';
 })
 export class CustomerListComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
-
-  customers: Array<Customer> = new Array<Customer>();
   dataSource: MatTableDataSource<Customer>;
   columns: Array<string> = ['name']
-  isLoading: boolean = true;
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private customerService: CustomerService) { }
+  constructor(private store: Store<fromCustomers.State>) { }
 
   ngOnInit(): void {
-    this.subscriptions.add(this.customerService.getAll().subscribe((resp: Array<Customer>) => {
-      this.customers = resp;
-      this.dataSource = new MatTableDataSource(this.customers);
-      this.dataSource.sort = this.sort;
-      this.isLoading = false;
+    this.subscriptions.add(this.store.pipe(
+      select(state => state.customerState.customers),
+      filter(customers => customers != null))
+      .subscribe((customers: Array<Customer>) => {
+        this.dataSource = new MatTableDataSource(customers);
+        this.dataSource.sort = this.sort;
     }));
   }
 
   ngOnDestroy(): void {
-    this.subscriptions?.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
 }
