@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from 'src/app/core/core.module';
 import { WorkTimeComponent } from './work-time/work-time.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { PrimeNGModule } from 'src/app/prime-ng.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AppRoutingModule,
     FontAwesomeModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    PrimeNGModule
   ]
 })
 export class ReportsModule { }

@@ -16,12 +16,11 @@ export class ProjectEffortComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
 
   columns = [
-    'projectSymbol',
-    'customerName',
-    'projectName',
-    'hours',
-    'hasProgress',
-    // 'projectId'
+    { field: 'projectSymbol', header: 'Numer projektu'},
+    { field: 'customerName', header: 'Zleceniodawca'},
+    { field: 'projectName', header: 'Nazwa projektu'},
+    { field: 'hours', header: 'Godziny'},
+    { field: 'hasProgress', header: 'Postęp prac'},
   ]
 
   projectEfforts: Array<ProjectEffort>;

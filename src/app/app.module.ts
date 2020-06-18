@@ -14,9 +14,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { OfficeModule } from './modules/office/office.module';
 import { SharedModule } from './shared/shared.module';
-import { LoaderService } from './core/loader/loader.service';
 import { LoaderInterceptor } from './core/loader/loader.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { PrimeNGModule } from './prime-ng.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     OfficeModule,
-    SharedModule
+    SharedModule,
+    PrimeNGModule
   ],
   providers: [
     {
