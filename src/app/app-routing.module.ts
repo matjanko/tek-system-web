@@ -8,6 +8,7 @@ import { WorkTimeComponent } from './modules/reports/work-time/work-time.compone
 import { ProjectsComponent } from './modules/office/projects/projects.component';
 import { CustomersComponent } from './modules/office/customers/customers.component';
 import { EmployeesComponent } from './modules/office/employees/employees.component';
+import { CustomerDialogAddComponent } from './modules/office/customers/components/customer-dialog/customer-dialog-add.component';
 
 
 const routes: Routes = [
@@ -25,7 +26,13 @@ const routes: Routes = [
       },
       {
         path: 'customers',
-        component: CustomersComponent
+        component: CustomersComponent,
+        children: [
+          {
+            path: 'new',
+            component: CustomerDialogAddComponent
+          }
+        ]
       },
       {
         path: 'employees',

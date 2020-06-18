@@ -15,11 +15,21 @@ import { StoreModule } from '@ngrx/store';
 import * as fromCustomers from './customers/state/customer.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CustomerEffects } from './customers/state/customer.effects';
+import { CustomerDialogComponent } from './customers/components/customer-dialog/customer-dialog.component';
+import { CustomerDialogAddComponent } from './customers/components/customer-dialog/customer-dialog-add.component';
 
 
 
 @NgModule({
-  declarations: [OfficeComponent, ProjectsComponent, EmployeesComponent, CustomersComponent, CustomerListComponent],
+  declarations: [
+    OfficeComponent,
+    ProjectsComponent,
+    EmployeesComponent,
+    CustomersComponent,
+    CustomerListComponent,
+    CustomerDialogComponent,
+    CustomerDialogAddComponent
+  ],
   imports: [
     CommonModule,
     MaterialModule,
