@@ -1,46 +1,58 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ProjectEffort } from './models/project-effort';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { ProjectEffortService } from './services/project-effort.service';
 import { Subscription } from 'rxjs';
-
+import { SelectItem } from 'primeng/api';
+import { DictionaryService } from 'src/app/shared/services/dictionary.service';
+import { MultiSelectItem } from 'primeng/multiselect';
 
 @Component({
   selector: 'app-project-effort',
   templateUrl: './project-effort.component.html',
-  styleUrls: ['./project-effort.component.less']
+  styleUrls: ['./project-effort.component.less'],
 })
 export class ProjectEffortComponent implements OnInit, OnDestroy {
-  private subscriptions = new Subscription();
-
   columns = [
-    { field: 'projectSymbol', header: 'Numer projektu'},
-    { field: 'customerName', header: 'Zleceniodawca'},
-    { field: 'projectName', header: 'Nazwa projektu'},
-    { field: 'hours', header: 'Godziny'},
-    { field: 'hasProgress', header: 'Postęp prac'},
-  ]
+    { field: 'projectSymbol', header: 'Numer projektu' },
+    { field: 'customerName', header: 'Zleceniodawca' },
+    { field: 'projectName', header: 'Nazwa projektu' },
+    { field: 'hours', header: 'Godziny' },
+    { field: 'hasProgress', header: 'Postęp prac' },
+  ];
 
   projectEfforts: Array<ProjectEffort>;
-  dataSource: MatTableDataSource<ProjectEffort>;
   faCircle = faCircle;
+  customerNames: SelectItem[] = new Array();
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  private subscriptions = new Subscription();
 
   constructor(
-    private projectEffortService: ProjectEffortService
-  ) {
-
-  }
+    private projectEffortService: ProjectEffortService,
+    private dictionaryService: DictionaryService
+  ) {}
 
   ngOnInit(): void {
-    this.subscriptions.add(this.projectEffortService.getAll().subscribe((resp: Array<ProjectEffort>) => {
-      this.projectEfforts = resp;
-      this.dataSource = new MatTableDataSource(this.projectEfforts);
-      this.dataSource.sort = this.sort;
-    }));
+    this.subscriptions.add(
+      this.projectEffortService
+        .getAll()
+        .subscribe((resp: Array<ProjectEffort>) => {
+          this.projectEfforts = resp;
+        })
+    );
+
+    this.subscriptions.add(
+      this.dictionaryService
+        .getCustomerNames()
+        .subscribe((resp: Array<string>) => {
+          resp.forEach((x) => {
+            this.customerNames.push({
+              label: x.toString(),
+              value: x.toString(),
+            });
+          });
+        })
+    );
   }
 
   ngOnDestroy(): void {
