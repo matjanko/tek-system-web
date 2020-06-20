@@ -38,19 +38,18 @@ export class ProjectEffortComponent implements OnInit, OnDestroy {
         .getAll()
         .subscribe((resp: Array<ProjectEffort>) => {
           this.projectEfforts = resp;
-        })
-    );
-
-    this.subscriptions.add(
-      this.dictionaryService
-        .getCustomerNames()
-        .subscribe((resp: Array<string>) => {
-          resp.forEach((x) => {
-            this.customerNames.push({
-              label: x.toString(),
-              value: x.toString(),
-            });
-          });
+          this.subscriptions.add(
+            this.dictionaryService
+              .getCustomerNames()
+              .subscribe((resp: Array<string>) => {
+                resp.forEach((x) => {
+                  this.customerNames.push({
+                    label: x,
+                    value: x,
+                  });
+                });
+              })
+          );
         })
     );
   }
