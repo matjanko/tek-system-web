@@ -18,7 +18,7 @@
             />
           </div>
         </ng-template>
-        <ng-template pTemplate="header" let-columns let-column>
+        <ng-template pTemplate="header" let-column>
           <tr>
             <th rowspan="2">
               {{ column[0].header }}
@@ -50,10 +50,24 @@
             </th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <ng-template pTemplate="body" let-projectEffort>
           <tr>
-            <td *ngFor="let col of columns">
-              {{ rowData[col.field] }}
+            <td>
+              {{ projectEffort.projectSymbol }}
+            </td>
+            <td>
+              {{ projectEffort.customerName }}
+            </td>
+            <td>
+              {{ projectEffort.projectName }}
+            </td>
+            <td>
+              {{ projectEffort.hours }}
+            </td>
+            <td>
+              <div *ngIf="projectEffort.hasProgress" class="icon-container">
+                <fa-icon [icon]="faCircle" style="color: green;"></fa-icon>
+              </div>
             </td>
           </tr>
         </ng-template>
