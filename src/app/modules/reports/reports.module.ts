@@ -10,15 +10,12 @@ import { CoreModule } from 'src/app/core/core.module';
 import { WorkTimeComponent } from './work-time/work-time.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PrimeNGModule } from 'src/app/prime-ng.module';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    ReportsComponent,
-    ProjectEffortComponent,
-    WorkTimeComponent
-  ],
+  declarations: [ReportsComponent, ProjectEffortComponent, WorkTimeComponent],
   imports: [
+    ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
     FontAwesomeModule,
@@ -27,7 +24,7 @@ import { PrimeNGModule } from 'src/app/prime-ng.module';
     FontAwesomeModule,
     CoreModule,
     SharedModule,
-    PrimeNGModule
-  ]
+    PrimeNGModule,
+  ],
 })
-export class ReportsModule { }
+export class ReportsModule {}

@@ -17,11 +17,10 @@ import { SharedModule } from './shared/shared.module';
 import { LoaderInterceptor } from './core/loader/loader.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PrimeNGModule } from './prime-ng.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -33,18 +32,21 @@ import { PrimeNGModule } from './prime-ng.module';
     FontAwesomeModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
     OfficeModule,
     SharedModule,
-    PrimeNGModule
+    PrimeNGModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
