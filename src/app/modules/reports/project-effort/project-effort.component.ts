@@ -14,11 +14,17 @@ import { MultiSelectItem } from 'primeng/multiselect';
 })
 export class ProjectEffortComponent implements OnInit, OnDestroy {
   columns = [
-    { field: 'projectSymbol', header: 'Numer projektu' },
+    { field: 'projectSymbol', header: 'Numer' },
     { field: 'customerName', header: 'Zleceniodawca' },
     { field: 'projectName', header: 'Nazwa projektu' },
     { field: 'hours', header: 'Godziny' },
     { field: 'hasProgress', header: 'Postęp prac' },
+  ];
+
+  progress = [
+    { label: 'Wszystkie', value: null },
+    { label: 'TAK', value: true },
+    { label: 'NIE', value: false },
   ];
 
   projectEfforts: Array<ProjectEffort>;
