@@ -17,8 +17,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CustomerEffects } from './customers/state/customer.effects';
 import { CustomerDialogComponent } from './customers/components/customer-dialog/customer-dialog.component';
 import { CustomerDialogAddComponent } from './customers/components/customer-dialog/customer-dialog-add.component';
-
-
+import { PrimeNGModule } from 'src/app/prime-ng.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,7 @@ import { CustomerDialogAddComponent } from './customers/components/customer-dial
     CustomersComponent,
     CustomerListComponent,
     CustomerDialogComponent,
-    CustomerDialogAddComponent
+    CustomerDialogAddComponent,
   ],
   imports: [
     CommonModule,
@@ -37,12 +36,11 @@ import { CustomerDialogAddComponent } from './customers/components/customer-dial
     AppRoutingModule,
     FontAwesomeModule,
     CoreModule,
+    PrimeNGModule,
     SharedModule,
     StoreModule.forFeature('customerState', fromCustomers.reducer),
-    EffectsModule.forFeature([CustomerEffects])
+    EffectsModule.forFeature([CustomerEffects]),
   ],
-  exports: [
-    OfficeComponent
-  ]
+  exports: [OfficeComponent],
 })
-export class OfficeModule { }
+export class OfficeModule {}
