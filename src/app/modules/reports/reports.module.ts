@@ -11,9 +11,19 @@ import { WorkTimeComponent } from './work-time/work-time.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PrimeNGModule } from 'src/app/prime-ng.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MonthlyWorkTimeSummaryComponent } from './work-time/components/monthly-work-time-summary/monthly-work-time-summary.component';
+import { MonthlyWorkTimeListComponent } from './work-time/components/monthly-work-time-list/monthly-work-time-list.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromWorkTime from './work-time/state/work-time.reducer';
 
 @NgModule({
-  declarations: [ReportsComponent, ProjectEffortComponent, WorkTimeComponent],
+  declarations: [
+    ReportsComponent,
+    ProjectEffortComponent,
+    WorkTimeComponent,
+    MonthlyWorkTimeSummaryComponent,
+    MonthlyWorkTimeListComponent,
+  ],
   imports: [
     ReactiveFormsModule,
     CommonModule,
@@ -25,6 +35,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CoreModule,
     SharedModule,
     PrimeNGModule,
+    StoreModule.forFeature('workTimeState', fromWorkTime.reducer),
   ],
 })
 export class ReportsModule {}

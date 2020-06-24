@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { MonthlyWorkTime } from './models/monthly-work-time';
-import { MonthlyWorkTimeService } from './services/monthly-work-time.service';
-import { filter } from 'rxjs/operators';
+import { filter, first, map, switchMap } from 'rxjs/operators';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import * as fromWorkTime from './state/work-time.reducer';
+import { Store, select } from '@ngrx/store';
+import * as WorkTimeActions from './state/work-time.actions';
 
 @Component({
   selector: 'app-work-time',
@@ -17,10 +14,8 @@ import { filter } from 'rxjs/operators';
 })
 export class WorkTimeComponent implements OnInit {
   dateForm = new FormGroup({
-    date: new FormControl(new Date(), Validators.required),
+    date: new FormControl(null, Validators.required),
   });
-
-  monthlyWorkTimes: Array<MonthlyWorkTime>;
 
   pl = {
     monthNamesShort: [
@@ -39,59 +34,104 @@ export class WorkTimeComponent implements OnInit {
     ],
   };
 
-  columns = [
-    { field: 'employeeName', header: 'Pracownik' },
-    { field: 'hours', header: 'Godziny pracy' },
-  ];
-
   private subscriptions = new Subscription();
 
-  constructor(private monthlyWorkTimeService: MonthlyWorkTimeService) {}
+  constructor(
+    private store: Store<fromWorkTime.State>,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.subscriptions.add(
-      this.monthlyWorkTimeService
-        .getAllByYearAndMonth(
-          this.getDate().getFullYear().toString(),
-          this.getMonthString()
+      this.store
+        .pipe(
+          select((state) => state.workTimeState.date),
+          filter((date) => date != null)
         )
-        .subscribe((workTimes: Array<MonthlyWorkTime>) => {
-          this.monthlyWorkTimes = workTimes;
+        .subscribe((date) => {
+          this.dateForm.controls.date.setValue(date);
+          this.store.dispatch(WorkTimeActions.setDate({ date: date }));
+          this.redirectToDate(date);
         })
     );
 
-    this.handleDate();
+    this.subscriptions.add(
+      this.activatedRoute.firstChild?.params
+        .pipe(first())
+        .subscribe((params) => {
+          let date = new Date(params['year'], params['month'] - 1);
+          this.dateForm.controls.date.setValue(date);
+          this.store.dispatch(WorkTimeActions.setDate({ date: date }));
+        })
+    );
+
+    if (this.getDate() == null) {
+      let date = new Date();
+      this.dateForm.controls.date.setValue(date);
+      this.store.dispatch(WorkTimeActions.setDate({ date: date }));
+      this.redirectToDate(date);
+    }
+
+    this.subscriptions.add(
+      this.dateForm.controls.date.valueChanges
+        .pipe(filter((date) => date != null))
+        .subscribe((date) => {
+          this.store.dispatch(WorkTimeActions.setDate({ date: date }));
+          this.redirectToDate(date);
+        })
+    );
+
+    this.subscriptions.add(
+      this.router.events
+        .pipe(
+          filter((event) => event instanceof NavigationEnd),
+          map(() => this.activatedRoute),
+          map((route) => route.firstChild),
+          filter((route) => route != null),
+          switchMap((route) => route.params)
+        )
+        .subscribe((params) => {
+          let date = new Date(params['year'], params['month'] - 1);
+          this.dateForm.controls.date.setValue(date);
+          this.store.dispatch(WorkTimeActions.setDate({ date: date }));
+        })
+    );
+
+    // this.subscriptions.add(
+    //   this.monthlyWorkTimeService
+    //     .getAllByYearAndMonth(
+    //       this.getDate().getFullYear().toString(),
+    //       this.getMonthString()
+    //     )
+    //     .subscribe((workTimes: Array<MonthlyWorkTime>) => {
+    //       this.monthlyWorkTimes = workTimes;
+    //     })
+    // );
+    // this.handleDate();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
-  getMonthString(): string {
-    let month = this.dateForm.controls.date.value.getMonth() + 1;
-    return month < 10 ? '0'.concat(month.toString()) : month.toString();
-  }
-
   getDate(): Date {
     return this.dateForm.controls.date.value;
   }
 
-  private handleDate(): void {
-    this.subscriptions.add(
-      this.dateForm.controls.date.valueChanges
-        .pipe(filter((date) => date != null))
-        .subscribe((date: Date) => {
-          this.subscriptions.add(
-            this.monthlyWorkTimeService
-              .getAllByYearAndMonth(
-                date.getFullYear().toString(),
-                this.getMonthString()
-              )
-              .subscribe((workTimes: Array<MonthlyWorkTime>) => {
-                this.monthlyWorkTimes = workTimes;
-              })
-          );
-        })
-    );
+  private redirectToDate(date: Date): void {
+    this.router.navigate([
+      'reports',
+      'work-time',
+      'year',
+      date?.getFullYear(),
+      'month',
+      this.getMonthString(date),
+    ]);
+  }
+
+  private getMonthString(date: Date): string {
+    let month = date?.getMonth() + 1;
+    return month < 10 ? '0'.concat(month?.toString()) : month?.toString();
   }
 }

@@ -9,12 +9,12 @@ import { ProjectsComponent } from './modules/office/projects/projects.component'
 import { CustomersComponent } from './modules/office/customers/customers.component';
 import { EmployeesComponent } from './modules/office/employees/employees.component';
 import { CustomerDialogAddComponent } from './modules/office/customers/components/customer-dialog/customer-dialog-add.component';
-
+import { MonthlyWorkTimeListComponent } from './modules/reports/work-time/components/monthly-work-time-list/monthly-work-time-list.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'office',
@@ -22,7 +22,7 @@ const routes: Routes = [
     children: [
       {
         path: 'projects',
-        component: ProjectsComponent
+        component: ProjectsComponent,
       },
       {
         path: 'customers',
@@ -30,15 +30,15 @@ const routes: Routes = [
         children: [
           {
             path: 'new',
-            component: CustomerDialogAddComponent
-          }
-        ]
+            component: CustomerDialogAddComponent,
+          },
+        ],
       },
       {
         path: 'employees',
-        component: EmployeesComponent
+        component: EmployeesComponent,
       },
-    ]
+    ],
   },
   {
     path: 'reports',
@@ -46,18 +46,24 @@ const routes: Routes = [
     children: [
       {
         path: 'projects',
-        component: ProjectEffortComponent
+        component: ProjectEffortComponent,
       },
       {
         path: 'work-time',
-        component: WorkTimeComponent
-      }
-    ]
-  }
+        component: WorkTimeComponent,
+        children: [
+          {
+            path: 'year/:year/month/:month',
+            component: MonthlyWorkTimeListComponent,
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

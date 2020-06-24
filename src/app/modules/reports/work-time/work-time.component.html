@@ -11,47 +11,10 @@
       [locale]="pl"
     ></p-calendar>
   </div>
-  <div *ngIf="monthlyWorkTimes?.length > 0">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-5 pl-0">
-          <p-table
-            #monthlyWorkTimeTable
-            [value]="monthlyWorkTimes"
-            [columns]="columns"
-          >
-            <ng-template pTemplate="header" let-column>
-              <tr>
-                <th colspan="2">
-                  {{
-                    "Godzni pracy za miesiąc " +
-                      getMonthString() +
-                      "/" +
-                      getDate().getFullYear()
-                  }}
-                </th>
-              </tr>
-              <tr>
-                <th>
-                  {{ column[0].header }}
-                </th>
-                <th style="width: 200px;">
-                  {{ column[1].header }}
-                </th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-monthlyWorkTime>
-              <tr>
-                <td>
-                  {{ monthlyWorkTime.employeeName }}
-                </td>
-                <td>
-                  {{ monthlyWorkTime.hours }}
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-5 pl-0">
+        <router-outlet></router-outlet>
       </div>
     </div>
   </div>
