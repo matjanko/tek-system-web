@@ -1,38 +1,49 @@
-<p-table
-  #monthlyWorkTimeTable
-  [value]="monthlyWorkTimes"
-  [columns]="columns"
-  selectionMode="single"
-  [metaKeySelection]="true"
-  [(selection)]="selectedMonthlyWorkTime"
-  (onRowSelect)="onRowSelect()"
->
-  <ng-template pTemplate="header" let-column>
-    <tr>
-      <th colspan="2">
-        {{
-          "Godzni pracy za miesiąc " +
-            getMonthString() +
-            "/" +
-            selectedDate?.getFullYear()
-        }}
-      </th>
-    </tr>
-    <tr>
-      <th>
-        {{ column[0].header }}
-      </th>
-      <th style="width: 200px;">
-        {{ column[1].header }}
-      </th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-rowData let-columns="columns">
-    <tr [pSelectableRow]="rowData">
-      <td *ngFor="let col of columns">
-        {{ rowData[col.field] }}
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
-<router-outlet></router-outlet>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-5 pl-0 pb-4">
+      <p-table
+        #monthlyWorkTimeTable
+        [value]="monthlyWorkTimes"
+        [columns]="columns"
+        selectionMode="single"
+        [metaKeySelection]="true"
+        [(selection)]="selectedMonthlyWorkTime"
+        (onRowSelect)="onRowSelect()"
+      >
+        <ng-template pTemplate="header" let-column>
+          <tr>
+            <th colspan="2">
+              {{
+                "Godziny pracy za miesiąc " +
+                  getMonthString() +
+                  "/" +
+                  selectedDate?.getFullYear()
+              }}
+            </th>
+          </tr>
+          <tr>
+            <th>
+              {{ column[0].header }}
+            </th>
+            <th style="width: 200px;">
+              {{ column[1].header }}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+              {{ rowData[col.field] }}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div class="col-lg-7 pl-0">
+      <app-monthly-work-time-summary
+        [selectedDate]="selectedDate"
+        [selectedMonthlyWorkTime]="selectedMonthlyWorkTime"
+      ></app-monthly-work-time-summary>
+    </div>
+  </div>
+</div>
