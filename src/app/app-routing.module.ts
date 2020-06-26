@@ -10,6 +10,7 @@ import { CustomersComponent } from './modules/office/customers/customers.compone
 import { EmployeesComponent } from './modules/office/employees/employees.component';
 import { CustomerDialogAddComponent } from './modules/office/customers/components/customer-dialog/customer-dialog-add.component';
 import { MonthlyWorkTimeListComponent } from './modules/reports/work-time/components/monthly-work-time-list/monthly-work-time-list.component';
+import { MonthlyWorkTimeSummaryComponent } from './modules/reports/work-time/components/monthly-work-time-summary/monthly-work-time-summary.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,12 @@ const routes: Routes = [
           {
             path: 'year/:year/month/:month',
             component: MonthlyWorkTimeListComponent,
+            children: [
+              {
+                path: 'employee/:employeeId',
+                component: MonthlyWorkTimeSummaryComponent,
+              },
+            ],
           },
         ],
       },

@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MonthlyWorkTime } from '../../models/monthly-work-time';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import * as fromWorkTime from '../../state/work-time.reducer';
 import { Store, select } from '@ngrx/store';
-import { filter } from 'rxjs/operators';
+import { filter, first } from 'rxjs/operators';
 import { MonthlyWorkTimeService } from '../../services/monthly-work-time.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-monthly-work-time-list',
@@ -25,7 +26,8 @@ export class MonthlyWorkTimeListComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromWorkTime.State>,
-    private monthlyWorkTimeService: MonthlyWorkTimeService
+    private monthlyWorkTimeService: MonthlyWorkTimeService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -37,16 +39,15 @@ export class MonthlyWorkTimeListComponent implements OnInit, OnDestroy {
         )
         .subscribe((date) => {
           this.selectedDate = date;
-          this.subscriptions.add(
-            this.monthlyWorkTimeService
-              .getAllByYearAndMonth(
-                date.getFullYear().toString(),
-                this.getMonthString()
-              )
-              .subscribe((workTimes: Array<MonthlyWorkTime>) => {
-                this.monthlyWorkTimes = workTimes;
-              })
-          );
+
+          this.monthlyWorkTimeService
+            .getAllByYearAndMonth(
+              date.getFullYear().toString(),
+              this.getMonthString()
+            )
+            .then((workTimes: Array<MonthlyWorkTime>) => {
+              this.monthlyWorkTimes = workTimes;
+            });
         })
     );
   }
@@ -55,7 +56,18 @@ export class MonthlyWorkTimeListComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  onRowSelect(event) {}
+  onRowSelect() {
+    this.router.navigate([
+      'reports',
+      'work-time',
+      'year',
+      this.selectedDate.getFullYear(),
+      'month',
+      this.getMonthString(),
+      'employee',
+      this.selectedMonthlyWorkTime.employeeId,
+    ]);
+  }
 
   getMonthString(): string {
     let month = this.selectedDate?.getMonth() + 1;

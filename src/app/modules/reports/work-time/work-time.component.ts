@@ -93,22 +93,13 @@ export class WorkTimeComponent implements OnInit {
         )
         .subscribe((params) => {
           let date = new Date(params['year'], params['month'] - 1);
-          this.dateForm.controls.date.setValue(date);
-          this.store.dispatch(WorkTimeActions.setDate({ date: date }));
+          let currentDate = this.getDate();
+          if (date.getTime() !== currentDate.getTime()) {
+            this.dateForm.controls.date.setValue(date);
+            this.store.dispatch(WorkTimeActions.setDate({ date: date }));
+          }
         })
     );
-
-    // this.subscriptions.add(
-    //   this.monthlyWorkTimeService
-    //     .getAllByYearAndMonth(
-    //       this.getDate().getFullYear().toString(),
-    //       this.getMonthString()
-    //     )
-    //     .subscribe((workTimes: Array<MonthlyWorkTime>) => {
-    //       this.monthlyWorkTimes = workTimes;
-    //     })
-    // );
-    // this.handleDate();
   }
 
   ngOnDestroy(): void {
