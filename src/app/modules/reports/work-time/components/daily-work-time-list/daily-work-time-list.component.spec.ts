@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MonthlyWorkTimeSummaryComponent } from './monthly-work-time-summary.component';
+import { MonthlyWorkTimeSummaryComponent } from './daily-work-time-list.component';
 
 describe('MonthlyWorkTimeSummaryComponent', () => {
   let component: MonthlyWorkTimeSummaryComponent;
@@ -8,9 +8,8 @@ describe('MonthlyWorkTimeSummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MonthlyWorkTimeSummaryComponent ]
-    })
-    .compileComponents();
+      declarations: [MonthlyWorkTimeSummaryComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

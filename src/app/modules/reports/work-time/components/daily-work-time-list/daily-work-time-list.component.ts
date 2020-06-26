@@ -3,10 +3,10 @@ import { MonthlyWorkTime } from '../../models/monthly-work-time';
 
 @Component({
   selector: 'app-monthly-work-time-summary',
-  templateUrl: './monthly-work-time-summary.component.html',
-  styleUrls: ['./monthly-work-time-summary.component.less'],
+  templateUrl: './daily-work-time-list.component.html',
+  styleUrls: ['./daily-work-time-list.component.less'],
 })
-export class MonthlyWorkTimeSummaryComponent implements OnInit {
+export class DailyWorkTimeListComponent implements OnInit {
   @Input() selectedMonthlyWorkTime: MonthlyWorkTime;
   @Input() selectedDate: Date;
 

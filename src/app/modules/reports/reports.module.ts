@@ -11,17 +11,17 @@ import { WorkTimeComponent } from './work-time/work-time.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PrimeNGModule } from 'src/app/prime-ng.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MonthlyWorkTimeSummaryComponent } from './work-time/components/monthly-work-time-summary/monthly-work-time-summary.component';
 import { MonthlyWorkTimeListComponent } from './work-time/components/monthly-work-time-list/monthly-work-time-list.component';
 import { StoreModule } from '@ngrx/store';
 import * as fromWorkTime from './work-time/state/work-time.reducer';
+import { DailyWorkTimeListComponent } from './work-time/components/daily-work-time-list/daily-work-time-list.component';
 
 @NgModule({
   declarations: [
     ReportsComponent,
     ProjectEffortComponent,
     WorkTimeComponent,
-    MonthlyWorkTimeSummaryComponent,
+    DailyWorkTimeListComponent,
     MonthlyWorkTimeListComponent,
   ],
   imports: [

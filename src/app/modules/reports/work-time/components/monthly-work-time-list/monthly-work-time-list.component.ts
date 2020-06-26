@@ -39,6 +39,7 @@ export class MonthlyWorkTimeListComponent implements OnInit, OnDestroy {
         )
         .subscribe((date) => {
           this.selectedDate = date;
+          this.selectedMonthlyWorkTime = null;
 
           this.monthlyWorkTimeService
             .getAllByYearAndMonth(
