@@ -16,7 +16,7 @@ import * as WorkTimeActions from '../../state/work-time.actions';
 export class MonthlyWorkTimeListComponent implements OnInit, OnDestroy {
   columns = [
     { field: 'employeeName', header: 'Pracownik' },
-    { field: 'hours', header: 'Godziny pracy' },
+    { field: 'hours', header: 'Godziny' },
   ];
 
   monthlyWorkTimes: Array<MonthlyWorkTime>;
@@ -40,7 +40,6 @@ export class MonthlyWorkTimeListComponent implements OnInit, OnDestroy {
         )
         .subscribe((date) => {
           this.selectedDate = date;
-          this.selectedMonthlyWorkTime = null;
 
           this.workTimeService
             .getAllMonthlyWorkTimeByYearAndMonth(

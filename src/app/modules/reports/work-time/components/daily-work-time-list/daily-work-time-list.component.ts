@@ -6,6 +6,7 @@ import { DailyWorkTime } from '../../models/daily-work-time';
 import * as fromWorkTime from '../../state/work-time.reducer';
 import { Store, select } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
+import * as WorkTimeActions from '../../state/work-time.actions';
 
 @Component({
   selector: 'app-monthly-work-time-summary',
@@ -35,26 +36,43 @@ export class DailyWorkTimeListComponent implements OnInit {
     this.subscriptions.add(
       this.store
         .pipe(
-          select((state) => state.workTimeState.selectedMonthlyWorkTime),
-          filter((workTime) => workTime != null)
+          select((state) => state.workTimeState.date),
+          filter((date) => date != null)
         )
+        .subscribe(() => {
+          this.store.dispatch(
+            WorkTimeActions.setSelectedMonthlyWorkTime({
+              monthlyWorkTime: null,
+            })
+          );
+        })
+    );
+
+    this.subscriptions.add(
+      this.store
+        .pipe(select((state) => state.workTimeState.selectedMonthlyWorkTime))
         .subscribe((workTime) => {
           this.selectedMonthlyWorkTime = workTime;
-          this.workTimeService
-            .getAllDailyWorkTimeByYearAndMonthAndEmployeeId(
-              this.selectedDate.getFullYear().toString(),
-              this.getMonthString(),
-              workTime.employeeId
-            )
-            .then((workTimes: Array<DailyWorkTime>) => {
-              this.dailyWorkTimes = workTimes;
-            });
+          if (workTime) {
+            this.workTimeService
+              .getAllDailyWorkTimeByYearAndMonthAndEmployeeId(
+                this.selectedDate.getFullYear().toString(),
+                this.getMonthString(),
+                workTime.employeeId
+              )
+              .then((workTimes: Array<DailyWorkTime>) => {
+                this.dailyWorkTimes = workTimes;
+              });
+          }
         })
     );
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this.store.dispatch(
+      WorkTimeActions.setSelectedMonthlyWorkTime({ monthlyWorkTime: null })
+    );
   }
 
   getMonthString(): string {
