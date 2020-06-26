@@ -1,6 +1,6 @@
 <div *ngIf="selectedMonthlyWorkTime">
-  <p-table>
-    <ng-template pTemplate="header">
+  <p-table #dailyWorkTimeTable [value]="dailyWorkTimes" [columns]="columns">
+    <ng-template pTemplate="header" let-column>
       <tr>
         <th colspan="2">
           <div class="d-flex justify-content-between">
@@ -10,6 +10,21 @@
             <div>{{ selectedMonthlyWorkTime.hours }} h</div>
           </div>
         </th>
+      </tr>
+      <tr>
+        <th>
+          {{ column[0].header }}
+        </th>
+        <th style="width: 200px;">
+          {{ column[1].header }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns">
+          {{ rowData[col.field] }}
+        </td>
       </tr>
     </ng-template>
   </p-table>

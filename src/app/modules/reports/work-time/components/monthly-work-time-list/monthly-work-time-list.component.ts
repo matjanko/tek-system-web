@@ -3,9 +3,10 @@ import { MonthlyWorkTime } from '../../models/monthly-work-time';
 import { Subscription, Observable } from 'rxjs';
 import * as fromWorkTime from '../../state/work-time.reducer';
 import { Store, select } from '@ngrx/store';
-import { filter, first } from 'rxjs/operators';
-import { MonthlyWorkTimeService } from '../../services/monthly-work-time.service';
+import { filter } from 'rxjs/operators';
+import { WorkTimeService } from '../../services/work-time.service';
 import { Router } from '@angular/router';
+import * as WorkTimeActions from '../../state/work-time.actions';
 
 @Component({
   selector: 'app-monthly-work-time-list',
@@ -26,7 +27,7 @@ export class MonthlyWorkTimeListComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<fromWorkTime.State>,
-    private monthlyWorkTimeService: MonthlyWorkTimeService,
+    private workTimeService: WorkTimeService,
     private router: Router
   ) {}
 
@@ -41,8 +42,8 @@ export class MonthlyWorkTimeListComponent implements OnInit, OnDestroy {
           this.selectedDate = date;
           this.selectedMonthlyWorkTime = null;
 
-          this.monthlyWorkTimeService
-            .getAllByYearAndMonth(
+          this.workTimeService
+            .getAllMonthlyWorkTimeByYearAndMonth(
               date.getFullYear().toString(),
               this.getMonthString()
             )
@@ -58,6 +59,12 @@ export class MonthlyWorkTimeListComponent implements OnInit, OnDestroy {
   }
 
   onRowSelect() {
+    this.store.dispatch(
+      WorkTimeActions.setSelectedMonthlyWorkTime({
+        monthlyWorkTime: this.selectedMonthlyWorkTime,
+      })
+    );
+
     this.router.navigate([
       'reports',
       'work-time',
