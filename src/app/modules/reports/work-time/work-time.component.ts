@@ -17,6 +17,8 @@ export class WorkTimeComponent implements OnInit {
     date: new FormControl(null, Validators.required),
   });
 
+  maxDate = new Date();
+
   pl = {
     monthNamesShort: [
       'sty',
