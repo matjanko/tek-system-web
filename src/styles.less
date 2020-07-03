@@ -1,1 +1,88 @@
-/* You can add global styles to this file, and also import other style files */
+//colors
+@color1: rgb(38, 55, 82);
+@color2: whitesmoke;
+@color3: rgb(44, 60, 87);
+@color4: rgb(230, 230, 230);
+
+html,
+body {
+  height: 100%;
+  background-color: @color2;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  background-color: @color1;
+  color: @color2;
+  height: 50px;
+  .header-logo {
+    margin-left: 40px;
+    align-self: center;
+  }
+  .header-tabs {
+    margin-left: 40px;
+    margin-right: 40px;
+    display: flex;
+    a {
+      color: @color2;
+      align-self: flex-end;
+      padding: 5px 20px 5px 20px;
+      text-decoration: none;
+      &:hover {
+        background-color: @color3;
+      }
+      &.active {
+        color: @color1;
+        background-color: @color2;
+      }
+    }
+  }
+  .header-controls {
+    margin-left: auto;
+    margin-right: 40px;
+    align-self: center;
+  }
+}
+
+.main-container {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+}
+
+.page-container {
+  position: fixed;
+  top: 50px;
+  left: 50px;
+  right: 0;
+  bottom: 0;
+  padding: 30px;
+  overflow-y: scroll;
+}
+
+.table-container {
+  background-color: whitesmoke;
+  table {
+    width: 100%;
+    th.mat-sort-header-sorted {
+      color: black;
+    }
+  }
+}
+
+.ui-table table {
+  table-layout: unset;
+}

@@ -1,0 +1,95 @@
+<app-page-title title="Podsumowanie projektów"></app-page-title>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col p-0">
+      <p-table #projectEffortTable [columns]="columns" [value]="projectEfforts">
+        <ng-template pTemplate="header" let-column>
+          <tr style="text-align: right;">
+            <th colspan="5">
+              <i class="pi pi-search" style="margin: 4px 4px 0 0;"></i>
+              <input
+                type="text"
+                pInputText
+                size="50"
+                placeholder="Wyszukaj..."
+                (input)="
+                  projectEffortTable.filterGlobal(
+                    $event.target.value,
+                    'contains'
+                  )
+                "
+                style="width: auto;"
+              />
+            </th>
+          </tr>
+          <tr>
+            <th rowspan="2" style="width: 100px;">
+              {{ column[0].header }}
+            </th>
+            <th style="width: 400px;">
+              {{ column[1].header }}
+            </th>
+            <th rowspan="2" style="min-width: 400px;">
+              {{ column[2].header }}
+            </th>
+            <th rowspan="2" style="width: 100px;">
+              {{ column[3].header }}
+            </th>
+            <th style="width: 200px;">
+              {{ column[4].header }}
+            </th>
+          </tr>
+          <tr>
+            <th [ngSwitch]="column[1].field">
+              <p-multiSelect
+                [style]="{ width: '100%' }"
+                *ngSwitchCase="'customerName'"
+                [options]="customerNames"
+                defaultLabel="Wszyscy"
+                (onChange)="
+                  projectEffortTable.filter($event.value, column[1].field, 'in')
+                "
+              ></p-multiSelect>
+            </th>
+            <th [ngSwitch]="column[4].field">
+              <p-dropdown
+                [style]="{ width: '100%' }"
+                *ngSwitchCase="'hasProgress'"
+                [options]="progress"
+                (onChange)="
+                  projectEffortTable.filter(
+                    $event.value,
+                    column[4].field,
+                    'equals'
+                  )
+                "
+              >
+              </p-dropdown>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-projectEffort>
+          <tr>
+            <td>
+              {{ projectEffort.projectSymbol }}
+            </td>
+            <td>
+              {{ projectEffort.customerName }}
+            </td>
+            <td>
+              {{ projectEffort.projectName }}
+            </td>
+            <td>
+              {{ projectEffort.hours }}
+            </td>
+            <td>
+              <div *ngIf="projectEffort.hasProgress" class="icon-container">
+                <fa-icon [icon]="faCircle" style="color: green;"></fa-icon>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
