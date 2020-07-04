@@ -1,0 +1,30 @@
+<div *ngIf="projects">
+  <p-table #projectTable [value]="projects" [columns]="columns">
+    <ng-template pTemplate="header" let-column>
+      <tr>
+        <th>
+          {{ column[0].header }}
+        </th>
+        <th>
+          {{ column[1].header }}
+        </th>
+        <th>
+          {{ column[2].header }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-project>
+      <tr>
+        <td>
+          {{ project.index }}
+        </td>
+        <td>
+          {{ project.customer?.name }}
+        </td>
+        <td>
+          {{ project.name }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

@@ -13,11 +13,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CustomerListComponent } from './customers/components/customer-list/customer-list.component';
 import { StoreModule } from '@ngrx/store';
 import * as fromCustomers from './customers/state/customer.reducer';
+import * as fromProjects from './projects/state/project.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CustomerEffects } from './customers/state/customer.effects';
 import { CustomerDialogComponent } from './customers/components/customer-dialog/customer-dialog.component';
 import { CustomerDialogAddComponent } from './customers/components/customer-dialog/customer-dialog-add.component';
 import { PrimeNGModule } from 'src/app/prime-ng.module';
+import { ProjectListComponent } from './projects/components/project-list/project-list.component';
+import { ProjectEffects } from './projects/state/project.effects';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,7 @@ import { PrimeNGModule } from 'src/app/prime-ng.module';
     CustomerListComponent,
     CustomerDialogComponent,
     CustomerDialogAddComponent,
+    ProjectListComponent,
   ],
   imports: [
     CommonModule,
@@ -39,7 +43,9 @@ import { PrimeNGModule } from 'src/app/prime-ng.module';
     PrimeNGModule,
     SharedModule,
     StoreModule.forFeature('customerState', fromCustomers.reducer),
+    StoreModule.forFeature('projectState', fromProjects.reducer),
     EffectsModule.forFeature([CustomerEffects]),
+    EffectsModule.forFeature([ProjectEffects]),
   ],
   exports: [OfficeComponent],
 })
