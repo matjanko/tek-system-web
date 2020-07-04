@@ -1,8 +1,8 @@
-<div *ngIf="projects">
+<div *ngIf="projects && customerNames">
   <p-table #projectTable [value]="projects" [columns]="columns">
     <ng-template pTemplate="header" let-column>
       <tr>
-        <th style="width: 150px;">
+        <th style="width: 200px;">
           {{ column[0].header }}
         </th>
         <th style="width: 300px;">
@@ -13,11 +13,23 @@
         </th>
       </tr>
       <tr>
-        <th></th>
+        <th>
+          <p-multiSelect
+            [style]="{ width: '100%' }"
+            [virtualScroll]="true"
+            itemSize="30"
+            [options]="projectIndexes"
+            defaultLabel="Wszystko"
+            (onChange)="projectTable.filter($event.value, 'index', 'in')"
+          >
+          </p-multiSelect>
+        </th>
         <th>
           <p-multiSelect
             [style]="{ width: '100%' }"
             [options]="customerNames"
+            [virtualScroll]="true"
+            itemSize="30"
             defaultLabel="Wszyscy"
             (onChange)="
               projectTable.filter($event.value, 'customer.name', 'in')
@@ -27,7 +39,7 @@
         </th>
         <th>
           <input
-            [style]="{ width: '100%' }"
+            [style]="{ width: '100%', height: '32px' }"
             pInputText
             type="text"
             placeholder="Wyszukaj..."

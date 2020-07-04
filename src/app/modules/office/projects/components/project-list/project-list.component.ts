@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Project } from '../../state/project.model';
 import { Subscription } from 'rxjs';
 import * as fromProjects from '../../state/project.reducer';
@@ -15,6 +15,7 @@ import { DictionaryService } from 'src/app/shared/services/dictionary.service';
 export class ProjectListComponent implements OnInit, OnDestroy {
   projects: Array<Project>;
   customerNames: SelectItem[] = new Array();
+  projectIndexes: SelectItem[] = new Array();
 
   columns = [
     { field: 'index', header: 'Numer projektu' },
@@ -38,18 +39,27 @@ export class ProjectListComponent implements OnInit, OnDestroy {
         )
         .subscribe((projects: Array<Project>) => {
           this.projects = projects;
-          this.subscriptions.add(
-            this.dictionaryService
-              .getCustomerNames()
-              .subscribe((resp: Array<string>) => {
-                resp.forEach((x) => {
-                  this.customerNames.push({
-                    label: x,
-                    value: x,
-                  });
+          this.dictionaryService
+            .getCustomerNames()
+            .subscribe((resp: Array<string>) => {
+              resp.forEach((x) => {
+                this.customerNames.push({
+                  label: x,
+                  value: x,
                 });
-              })
-          );
+              });
+            });
+
+          this.dictionaryService
+            .getProjectIndexes()
+            .subscribe((resp: Array<string>) => {
+              resp.forEach((x) => {
+                this.projectIndexes.push({
+                  label: x,
+                  value: x,
+                });
+              });
+            });
         })
     );
   }
