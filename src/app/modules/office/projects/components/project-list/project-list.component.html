@@ -2,14 +2,43 @@
   <p-table #projectTable [value]="projects" [columns]="columns">
     <ng-template pTemplate="header" let-column>
       <tr>
-        <th>
+        <th style="width: 150px;">
           {{ column[0].header }}
         </th>
-        <th>
+        <th style="width: 300px;">
           {{ column[1].header }}
         </th>
         <th>
           {{ column[2].header }}
+        </th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>
+          <p-multiSelect
+            [style]="{ width: '100%' }"
+            [options]="customerNames"
+            defaultLabel="Wszyscy"
+            (onChange)="
+              projectTable.filter($event.value, 'customer.name', 'in')
+            "
+          >
+          </p-multiSelect>
+        </th>
+        <th>
+          <input
+            [style]="{ width: '100%' }"
+            pInputText
+            type="text"
+            placeholder="Wyszukaj..."
+            (input)="
+              projectTable.filter(
+                $event.target.value,
+                column[2].field,
+                'contains'
+              )
+            "
+          />
         </th>
       </tr>
     </ng-template>
