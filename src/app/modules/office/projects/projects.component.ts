@@ -4,6 +4,7 @@ import * as ProjectActions from './state/project.actions';
 import { Store } from '@ngrx/store';
 import { DictionaryService } from 'src/app/shared/services/dictionary.service';
 import { SelectItem } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -13,10 +14,19 @@ import { SelectItem } from 'primeng/api';
 export class ProjectsComponent implements OnInit {
   constructor(
     private store: Store<fromProjects.State>,
-    private dictionaryService: DictionaryService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.store.dispatch(ProjectActions.getProjects());
+  }
+
+  handleNewProjectClick() {
+    console.log('Wciśnięto dodaj');
+    this.router.navigate(['office', 'projects', 'new']);
+  }
+
+  handleEditProjectClick() {
+    console.log('Wciśnięto edytuj');
   }
 }
