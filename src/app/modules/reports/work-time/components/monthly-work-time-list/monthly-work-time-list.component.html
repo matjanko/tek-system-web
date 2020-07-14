@@ -13,12 +13,28 @@
         <ng-template pTemplate="header" let-column>
           <tr>
             <th colspan="2">
-              {{
-                "Godziny pracy za miesiąc " +
-                  getMonthString() +
-                  "/" +
-                  selectedDate?.getFullYear()
-              }}
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  {{
+                    "Godziny pracy za miesiąc " +
+                      getMonthString() +
+                      "/" +
+                      selectedDate?.getFullYear()
+                  }}
+                </div>
+
+                <div>
+                  <button
+                    type="button"
+                    matTooltip="Eksport do Excela"
+                    matTooltipPosition="above"
+                    pButton
+                    label="EXCEL"
+                    (click)="exportExcel()"
+                    class="ui-button-success"
+                  ></button>
+                </div>
+              </div>
             </th>
           </tr>
           <tr>

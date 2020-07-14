@@ -7,6 +7,8 @@ import { filter } from 'rxjs/operators';
 import { WorkTimeService } from '../../services/work-time.service';
 import { Router } from '@angular/router';
 import * as WorkTimeActions from '../../state/work-time.actions';
+import { MonthlyWorkTimeExport } from '../../models/monthly-work-time-export';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-monthly-work-time-list',
@@ -79,5 +81,55 @@ export class MonthlyWorkTimeListComponent implements OnInit, OnDestroy {
   getMonthString(): string {
     let month = this.selectedDate?.getMonth() + 1;
     return month < 10 ? '0'.concat(month?.toString()) : month?.toString();
+  }
+
+  getTableHeader() {
+    return (
+      'Godziny pracy za miesiąc ' +
+      this.getMonthString() +
+      '/' +
+      this.selectedDate?.getFullYear()
+    );
+  }
+
+  exportExcel() {
+    import('xlsx').then((xlsx) => {
+      let monthlyWorkTimeExportList = new Array<MonthlyWorkTimeExport>();
+
+      this.monthlyWorkTimes.forEach((element) => {
+        monthlyWorkTimeExportList.push({
+          Pracownik: element.employeeName.trim(),
+          Czas: element.hours.toString().replace('.', ',').trim(),
+        });
+      });
+
+      const worksheet = xlsx.utils.json_to_sheet(monthlyWorkTimeExportList);
+      const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, {
+        bookType: 'xlsx',
+        type: 'array',
+      });
+      this.saveAsExcelFile(excelBuffer, 'TEK-Projekt - czas pracy');
+    });
+  }
+
+  private saveAsExcelFile(buffer: any, fileName: string): void {
+    import('file-saver').then((FileSaver) => {
+      let EXCEL_TYPE =
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+      let EXCEL_EXTENSION = '.xlsx';
+      const data: Blob = new Blob([buffer], {
+        type: EXCEL_TYPE,
+      });
+      FileSaver.saveAs(
+        data,
+        fileName +
+          ' ' +
+          this.getMonthString() +
+          '-' +
+          new Date().getFullYear() +
+          EXCEL_EXTENSION
+      );
+    });
   }
 }
