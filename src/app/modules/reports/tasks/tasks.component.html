@@ -1,0 +1,114 @@
+<app-page-title title="Zadania pracowników"></app-page-title>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col p-0" *ngIf="employeeTasks">
+      <p-table
+        #employeeTaskTable
+        [columns]="columns"
+        [value]="employeeTasks"
+        [paginator]="true"
+        [rows]="50"
+      >
+        <ng-template pTemplate="header" let-column>
+          <tr>
+            <th style="width: 10px;">
+              {{ column[0].header }}
+            </th>
+            <th style="width: 10px;">
+              {{ column[1].header }}
+            </th>
+            <th style="width: 10px;">
+              {{ column[2].header }}
+            </th>
+            <th style="width: 10px;">
+              {{ column[3].header }}
+            </th>
+            <th style="width: 10px;">
+              {{ column[4].header }}
+            </th>
+            <th style="width: 10px;">
+              {{ column[5].header }}
+            </th>
+            <th style="width: 10px;">
+              {{ column[6].header }}
+            </th>
+            <th style="width: 10px;">
+              {{ column[7].header }}
+            </th>
+            <th style="width: 10px;">
+              {{ column[8].header }}
+            </th>
+            <th style="width: 10px;">
+              {{ column[9].header }}
+            </th>
+            <th style="width: 10px;">
+              {{ column[10].header }}
+            </th>
+            <th style="width: 10px;">
+              {{ column[11].header }}
+            </th>
+            <th style="width: 10px;">
+              {{ column[12].header }}
+            </th>
+            <th style="width: 10px;">
+              {{ column[13].header }}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-employeeTask>
+          <tr>
+            <td>
+              {{ employeeTask?.employeeName }}
+            </td>
+            <td>
+              {{ employeeTask?.projectNumber }}
+            </td>
+            <td>
+              {{ employeeTask?.customerName }}
+            </td>
+            <td>
+              {{ employeeTask?.projectName }}
+            </td>
+            <td>
+              {{ employeeTask?.projectStageName }}
+            </td>
+            <td>
+              {{ employeeTask?.firstActivity }}
+            </td>
+            <td>
+              {{ employeeTask?.secondActivity }}
+            </td>
+            <td>
+              {{ employeeTask?.thirdActivity }}
+            </td>
+            <td>
+              {{ employeeTask?.software }}
+            </td>
+            <td>
+              {{ employeeTask?.isAdditionalCost }}
+            </td>
+            <td>
+              {{ employeeTask?.isMistake }}
+            </td>
+            <td>
+              {{ employeeTask?.startTime.replace("T", " ") }}
+            </td>
+            <td>
+              {{ employeeTask?.endTime.replace("T", " ") }}
+            </td>
+            <td>
+              {{ employeeTask?.hours }}
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="loadingbody" let-columns="columns">
+          <tr style="height: 34px;">
+            <td *ngFor="let col of columns">
+              <div class="loading-text"></div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

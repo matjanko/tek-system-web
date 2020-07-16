@@ -15,7 +15,7 @@ import { MonthlyWorkTimeListComponent } from './work-time/components/monthly-wor
 import { StoreModule } from '@ngrx/store';
 import * as fromWorkTime from './work-time/state/work-time.reducer';
 import { DailyWorkTimeListComponent } from './work-time/components/daily-work-time-list/daily-work-time-list.component';
-import { FullReportComponent } from './full-report/full-report.component';
+import { TasksComponent } from './tasks/tasks.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { FullReportComponent } from './full-report/full-report.component';
     WorkTimeComponent,
     DailyWorkTimeListComponent,
     MonthlyWorkTimeListComponent,
-    FullReportComponent,
+    TasksComponent,
   ],
   imports: [
     ReactiveFormsModule,

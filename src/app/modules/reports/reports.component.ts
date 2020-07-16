@@ -31,7 +31,7 @@ export class ReportsComponent implements OnInit {
       routerLink: '/reports/full-report',
       routerLinkActive: ['active'],
       routerLinkActiveOptions: { exact: false },
-      tooltip: 'Pełny raport',
+      tooltip: 'Zadania pracowników',
     }
   );
 
