@@ -19,12 +19,12 @@ export class TasksComponent implements OnInit {
     { field: 'firstActivity', header: 'Kategoria' },
     { field: 'secondActivity', header: 'Czynność główna' },
     { field: 'thirdActivity', header: 'Element' },
-    { field: 'software', header: 'Oprogramowanie' },
+    { field: 'software', header: 'Program' },
     { field: 'isAdditionalCost', header: 'Koszty' },
     { field: 'isMistake', header: 'Błędy' },
     { field: 'startTime', header: 'Start zadania' },
     { field: 'endTime', header: 'Koniec zadania' },
-    { field: 'hours', header: 'Czas zadania' },
+    { field: 'hours', header: 'Czas' },
   ];
 
   employeeTasks: Array<EmployeeTask>;
@@ -33,7 +33,13 @@ export class TasksComponent implements OnInit {
 
   constructor(private employeeTaskService: EmployeeTaskService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
+  onShowResultsClick() {
     this.subscriptions.add(
       this.employeeTaskService
         .getAll()
@@ -41,9 +47,5 @@ export class TasksComponent implements OnInit {
           this.employeeTasks = resp;
         })
     );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 }
