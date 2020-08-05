@@ -1,148 +1,24 @@
 <app-page-title title="Zadania pracowników"></app-page-title>
 <div class="container-fluid">
   <div class="row">
-    <p-table>
-      <ng-template pTemplate="header" let-column>
-        <tr>
-          <th style="width: 150px; min-width: 150px;">
-            Pracownik
-          </th>
-          <th style="width: 120px; min-width: 120px;">
-            Nr projektu
-          </th>
-          <th style="width: 150px; min-width: 150px;">
-            Zleceniodawca
-          </th>
-          <th style="width: 150px; min-width: 150px;">
-            Nazwa projektu
-          </th>
-          <th style="width: 150px; min-width: 150px;">
-            Stadium projektu
-          </th>
-          <th style="width: 150px; min-width: 150px;">
-            Kategoria
-          </th>
-          <th style="width: 150px; min-width: 150px;">
-            Podkategoria
-          </th>
-          <th style="width: 150px; min-width: 150px;">
-            Element
-          </th>
-          <th style="width: 100px; min-width: 100px;">
-            Program
-          </th>
-          <th style="width: 100px; min-width: 100px;">
-            Koszty
-          </th>
-          <th style="width: 100px; min-width: 100px;">
-            Błędy
-          </th>
-          <th style="width: 120px; min-width: 120px;">
-            Czas startu
-          </th>
-          <th style="width: 120px; min-width: 120px;">
-            Czas końca
-          </th>
-          <th rowspan="2">
-            Godziny
-          </th>
-        </tr>
-        <tr>
-          <th>
-            <p-dropdown
-              autoWidth="false"
-              [style]="{ minWidth: '100%', width: '100%' }"
-            ></p-dropdown>
-          </th>
-          <th>
-            <p-dropdown
-              autoWidth="false"
-              [style]="{ minWidth: '100%', width: '100%' }"
-            ></p-dropdown>
-          </th>
-          <th>
-            <p-dropdown
-              autoWidth="false"
-              [style]="{ minWidth: '100%', width: '100%' }"
-            ></p-dropdown>
-          </th>
-          <th>
-            <p-dropdown
-              autoWidth="false"
-              [style]="{ minWidth: '100%', width: '100%' }"
-            ></p-dropdown>
-          </th>
-          <th>
-            <p-dropdown
-              autoWidth="false"
-              [style]="{ minWidth: '100%', width: '100%' }"
-            ></p-dropdown>
-          </th>
-          <th>
-            <p-dropdown
-              autoWidth="false"
-              [style]="{ minWidth: '100%', width: '100%' }"
-            ></p-dropdown>
-          </th>
-          <th>
-            <p-dropdown
-              autoWidth="false"
-              [style]="{ minWidth: '100%', width: '100%' }"
-            ></p-dropdown>
-          </th>
-          <th>
-            <p-dropdown
-              autoWidth="false"
-              [style]="{ minWidth: '100%', width: '100%' }"
-            ></p-dropdown>
-          </th>
-          <th>
-            <p-dropdown
-              autoWidth="false"
-              [style]="{ minWidth: '100%', width: '100%' }"
-            ></p-dropdown>
-          </th>
-          <th>
-            <p-dropdown
-              autoWidth="false"
-              [style]="{ minWidth: '100%', width: '100%' }"
-            ></p-dropdown>
-          </th>
-          <th>
-            <p-dropdown
-              autoWidth="false"
-              [style]="{ minWidth: '100%', width: '100%' }"
-            ></p-dropdown>
-          </th>
-          <th>
-            <p-dropdown
-              autoWidth="false"
-              [style]="{ minWidth: '100%', width: '100%' }"
-            ></p-dropdown>
-          </th>
-          <th>
-            <p-dropdown
-              autoWidth="false"
-              [style]="{ minWidth: '100%', width: '100%' }"
-            ></p-dropdown>
-          </th>
-        </tr>
-        <tr>
-          <th colspan="13">
-            <button
-              mat-raised-button
-              color="primary"
-              (click)="onShowResultsClick()"
-            >
-              Pokaż wyniki
-            </button>
-          </th>
-          <th>
-            suma
-          </th>
-        </tr>
-      </ng-template>
-    </p-table>
+    <div class="col p-0">
+      <label class="pr-2">Pracownik:</label>
+      <p-dropdown
+        [options]="employeeNames"
+        [(ngModel)]="selectedEmployeeId"
+        filter="true"
+        [showClear]="true"
+      ></p-dropdown>
+    </div>
+    <div class="col p-0">
+      <label class="pr-2">Numer projektu:</label>
+      <p-dropdown></p-dropdown>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <button mat-raised-button color="primary" (click)="onShowResultsClick()">
+      Pokaż wyniki
+    </button>
   </div>
   <div class="row mt-3">
     <div class="col p-0" *ngIf="employeeTasks">
@@ -153,6 +29,52 @@
         [paginator]="true"
         [rows]="50"
       >
+        <ng-template pTemplate="header" let-column>
+          <tr>
+            <th style="width: 150px; min-width: 150px;">
+              Pracownik
+            </th>
+            <th style="width: 120px; min-width: 120px;">
+              Nr projektu
+            </th>
+            <th style="width: 150px; min-width: 150px;">
+              Zleceniodawca
+            </th>
+            <th style="width: 150px; min-width: 150px;">
+              Nazwa projektu
+            </th>
+            <th style="width: 150px; min-width: 150px;">
+              Stadium projektu
+            </th>
+            <th style="width: 150px; min-width: 150px;">
+              Kategoria
+            </th>
+            <th style="width: 150px; min-width: 150px;">
+              Podkategoria
+            </th>
+            <th style="width: 150px; min-width: 150px;">
+              Element
+            </th>
+            <th style="width: 100px; min-width: 100px;">
+              Program
+            </th>
+            <th style="width: 100px; min-width: 100px;">
+              Koszty
+            </th>
+            <th style="width: 100px; min-width: 100px;">
+              Błędy
+            </th>
+            <th style="width: 120px; min-width: 120px;">
+              Czas startu
+            </th>
+            <th style="width: 120px; min-width: 120px;">
+              Czas końca
+            </th>
+            <th rowspan="2">
+              Godziny
+            </th>
+          </tr>
+        </ng-template>
         <ng-template pTemplate="body" let-employeeTask>
           <tr>
             <td style="width: 150px; min-width: 150px;">

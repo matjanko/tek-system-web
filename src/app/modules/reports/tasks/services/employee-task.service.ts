@@ -7,9 +7,15 @@ import { HttpClient } from '@angular/common/http';
 export class EmployeeTaskService {
   constructor(private httpClient: HttpClient) {}
 
-  getAll() {
-    return this.httpClient.get(
-      'http://192.168.137.148:9090/api/reports/tasks/all'
-    );
+  getAll(employeeId?: number) {
+    let link = 'http://192.168.137.148:9090/api/reports/tasks';
+
+    if (employeeId) {
+      link += '?employeeId=' + employeeId;
+    }
+
+    console.log(link);
+
+    return this.httpClient.get(link);
   }
 }

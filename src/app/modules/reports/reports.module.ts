@@ -10,7 +10,7 @@ import { CoreModule } from 'src/app/core/core.module';
 import { WorkTimeComponent } from './work-time/work-time.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PrimeNGModule } from 'src/app/prime-ng.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MonthlyWorkTimeListComponent } from './work-time/components/monthly-work-time-list/monthly-work-time-list.component';
 import { StoreModule } from '@ngrx/store';
 import * as fromWorkTime from './work-time/state/work-time.reducer';
@@ -28,6 +28,7 @@ import { TasksComponent } from './tasks/tasks.component';
   ],
   imports: [
     ReactiveFormsModule,
+    FormsModule,
     CommonModule,
     HttpClientModule,
     FontAwesomeModule,

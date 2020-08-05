@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EmployeeTaskService } from './services/employee-task.service';
 import { EmployeeTask } from './models/employee-task';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent, SelectItem } from 'primeng/api';
+import { DictionaryService } from 'src/app/shared/services/dictionary.service';
+import { EmployeeDictionary } from 'src/app/shared/models/dictionaries/employee-name';
 
 @Component({
   selector: 'app-full-report',
@@ -29,11 +31,31 @@ export class TasksComponent implements OnInit {
 
   employeeTasks: Array<EmployeeTask>;
 
+  employeeNames: SelectItem[] = new Array();
+  customerNames: SelectItem[] = new Array();
+
+  selectedEmployeeId: number;
+
   private subscriptions = new Subscription();
 
-  constructor(private employeeTaskService: EmployeeTaskService) {}
+  constructor(
+    private employeeTaskService: EmployeeTaskService,
+    private dictionaryService: DictionaryService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.employeeNames.push({ label: 'Wszyscy', value: '' });
+    this.dictionaryService
+      .getEmployeeNames()
+      .subscribe((resp: Array<EmployeeDictionary>) => {
+        resp.forEach((x) => {
+          this.employeeNames.push({
+            label: x.name,
+            value: x.id,
+          });
+        });
+      });
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
@@ -42,7 +64,7 @@ export class TasksComponent implements OnInit {
   onShowResultsClick() {
     this.subscriptions.add(
       this.employeeTaskService
-        .getAll()
+        .getAll(this.selectedEmployeeId)
         .subscribe((resp: Array<EmployeeTask>) => {
           this.employeeTasks = resp;
         })
