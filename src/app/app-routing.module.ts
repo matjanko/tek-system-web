@@ -11,6 +11,7 @@ import { EmployeesComponent } from './modules/office/employees/employees.compone
 import { CustomerDialogAddComponent } from './modules/office/customers/components/customer-dialog/customer-dialog-add.component';
 import { MonthlyWorkTimeListComponent } from './modules/reports/work-time/components/monthly-work-time-list/monthly-work-time-list.component';
 import { DailyWorkTimeListComponent } from './modules/reports/work-time/components/daily-work-time-list/daily-work-time-list.component';
+import { TasksComponent } from './modules/reports/tasks/tasks.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,10 @@ const routes: Routes = [
             ],
           },
         ],
+      },
+      {
+        path: 'full-report',
+        component: TasksComponent,
       },
     ],
   },

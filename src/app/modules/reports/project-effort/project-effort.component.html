@@ -26,7 +26,7 @@
             <th rowspan="2" style="width: 100px;">
               {{ column[0].header }}
             </th>
-            <th style="width: 400px;">
+            <th style="min-width: 300px;">
               {{ column[1].header }}
             </th>
             <th rowspan="2" style="min-width: 400px;">
@@ -43,6 +43,8 @@
             <th [ngSwitch]="column[1].field">
               <p-multiSelect
                 [style]="{ width: '100%' }"
+                [virtualScroll]="true"
+                itemSize="30"
                 *ngSwitchCase="'customerName'"
                 [options]="customerNames"
                 defaultLabel="Wszyscy"

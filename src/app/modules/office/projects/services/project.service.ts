@@ -4,14 +4,10 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class ProjectEffortService {
-  link: '/effort/projects';
-
+export class ProjectService {
   constructor(private httpClient: HttpClient) {}
 
   getAll() {
-    return this.httpClient.get(
-      'http://192.168.137.148:9090/api/effort/projects'
-    );
+    return this.httpClient.get('http://192.168.137.148:9090/api/projects');
   }
 }
