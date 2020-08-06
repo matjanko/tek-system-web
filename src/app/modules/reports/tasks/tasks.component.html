@@ -1,18 +1,25 @@
 <app-page-title title="Zadania pracowników"></app-page-title>
 <div class="container-fluid">
-  <div class="row">
+  <div class="row filter-row">
     <div class="col p-0">
-      <label class="pr-2">Pracownik:</label>
-      <p-dropdown
-        [options]="employeeNames"
-        [(ngModel)]="selectedEmployeeId"
-        filter="true"
-        [showClear]="true"
-      ></p-dropdown>
-    </div>
-    <div class="col p-0">
-      <label class="pr-2">Numer projektu:</label>
-      <p-dropdown></p-dropdown>
+      <div>
+        <span class="pr-2">Pracownik:</span>
+        <p-dropdown
+          [options]="employees"
+          [(ngModel)]="selectedEmployeeId"
+          filter="true"
+          [style]="{ width: '100%' }"
+        ></p-dropdown>
+      </div>
+      <div>
+        <span class="pr-2">Zleceniodawca:</span>
+        <p-dropdown
+          [style]="{ width: '100%' }"
+          [options]="customers"
+          [(ngModel)]="selectedCustomerId"
+          filter="true"
+        ></p-dropdown>
+      </div>
     </div>
   </div>
   <div class="row mt-3">

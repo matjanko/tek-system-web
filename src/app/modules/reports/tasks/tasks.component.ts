@@ -5,6 +5,7 @@ import { EmployeeTask } from './models/employee-task';
 import { LazyLoadEvent, SelectItem } from 'primeng/api';
 import { DictionaryService } from 'src/app/shared/services/dictionary.service';
 import { EmployeeDictionary } from 'src/app/shared/models/dictionaries/employee-name';
+import { CustomerDictionary } from 'src/app/shared/models/dictionaries/customer-dictionary';
 
 @Component({
   selector: 'app-full-report',
@@ -31,10 +32,11 @@ export class TasksComponent implements OnInit {
 
   employeeTasks: Array<EmployeeTask>;
 
-  employeeNames: SelectItem[] = new Array();
-  customerNames: SelectItem[] = new Array();
+  employees: SelectItem[] = new Array();
+  customers: SelectItem[] = new Array();
 
   selectedEmployeeId: number;
+  selectedCustomerId: number;
 
   private subscriptions = new Subscription();
 
@@ -44,12 +46,24 @@ export class TasksComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.employeeNames.push({ label: 'Wszyscy', value: '' });
+    this.employees.push({ label: 'Wszyscy', value: '' });
+    this.customers.push({ label: 'Wszyscy', value: '' });
     this.dictionaryService
       .getEmployeeNames()
       .subscribe((resp: Array<EmployeeDictionary>) => {
         resp.forEach((x) => {
-          this.employeeNames.push({
+          this.employees.push({
+            label: x.name,
+            value: x.id,
+          });
+        });
+      });
+
+    this.dictionaryService
+      .getCustomers()
+      .subscribe((resp: Array<CustomerDictionary>) => {
+        resp.forEach((x) => {
+          this.customers.push({
             label: x.name,
             value: x.id,
           });
@@ -64,7 +78,7 @@ export class TasksComponent implements OnInit {
   onShowResultsClick() {
     this.subscriptions.add(
       this.employeeTaskService
-        .getAll(this.selectedEmployeeId)
+        .getAll(this.selectedEmployeeId, this.selectedCustomerId)
         .subscribe((resp: Array<EmployeeTask>) => {
           this.employeeTasks = resp;
         })
