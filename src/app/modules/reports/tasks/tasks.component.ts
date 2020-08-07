@@ -36,10 +36,12 @@ export class TasksComponent implements OnInit {
   employees: SelectItem[] = new Array();
   customers: SelectItem[] = new Array();
   projects: SelectItem[] = new Array();
+  projectStages: SelectItem[] = new Array();
 
   selectedEmployeeId: number;
   selectedCustomerId: number;
   selectedProjectId: number;
+  selectedProjectStageId: number;
 
   isCustomersDropdownDisabled: boolean;
   isProjectsDropdownDisabled: boolean;
@@ -54,7 +56,8 @@ export class TasksComponent implements OnInit {
   ngOnInit(): void {
     this.employees.push({ label: 'Wszyscy', value: '' });
     this.customers.push({ label: 'Wszyscy', value: '' });
-    this.projects.push({ label: 'Wszyscy', value: '' });
+    this.projects.push({ label: 'Wszystkie', value: '' });
+    this.projectStages.push({ label: 'Wszystkie', value: '' });
 
     this.dictionaryService
       .getEmployeeNames()
@@ -92,6 +95,17 @@ export class TasksComponent implements OnInit {
           });
         });
       });
+
+    this.dictionaryService
+      .getProjectStages()
+      .subscribe((resp: Array<CustomerDictionary>) => {
+        resp.forEach((x) => {
+          this.projectStages.push({
+            label: x.name,
+            value: x.id,
+          });
+        });
+      });
   }
 
   ngOnDestroy(): void {
@@ -104,7 +118,8 @@ export class TasksComponent implements OnInit {
         .getAll(
           this.selectedEmployeeId,
           this.selectedCustomerId,
-          this.selectedProjectId
+          this.selectedProjectId,
+          this.selectedProjectStageId
         )
         .subscribe((resp: Array<EmployeeTask>) => {
           this.employeeTasks = resp;

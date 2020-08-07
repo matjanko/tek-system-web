@@ -7,7 +7,12 @@ import { HttpClient } from '@angular/common/http';
 export class EmployeeTaskService {
   constructor(private httpClient: HttpClient) {}
 
-  getAll(employeeId?: number, customerId?: number, projectId?: number) {
+  getAll(
+    employeeId?: number,
+    customerId?: number,
+    projectId?: number,
+    projectStageId?: number
+  ) {
     let link = 'http://192.168.137.148:9090/api/reports/tasks';
 
     if (employeeId) {
@@ -22,7 +27,11 @@ export class EmployeeTaskService {
       link += '&customerId=' + customerId;
     }
 
-    if (employeeId || customerId || projectId) {
+    if (projectStageId) {
+      link += '&projectStageId=' + projectStageId;
+    }
+
+    if (employeeId || customerId || projectId || projectStageId) {
       link = link.replace('tasks&', 'tasks?');
     }
 

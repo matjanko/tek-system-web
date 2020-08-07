@@ -34,6 +34,14 @@
           (onChange)="onCustomersDropdownChange()"
         ></p-dropdown>
       </div>
+      <div>
+        <span class="pr-2">Stadium projektu:</span>
+        <p-dropdown
+          [style]="{ width: '100%' }"
+          [options]="projectStages"
+          [(ngModel)]="selectedProjectStageId"
+        ></p-dropdown>
+      </div>
     </div>
   </div>
   <div class="row mt-3">
