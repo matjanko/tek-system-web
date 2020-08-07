@@ -6,6 +6,7 @@ import { LazyLoadEvent, SelectItem } from 'primeng/api';
 import { DictionaryService } from 'src/app/shared/services/dictionary.service';
 import { EmployeeDictionary } from 'src/app/shared/models/dictionaries/employee-name';
 import { CustomerDictionary } from 'src/app/shared/models/dictionaries/customer-dictionary';
+import { ProjectDictionary } from 'src/app/shared/models/dictionaries/project-dictionary';
 
 @Component({
   selector: 'app-full-report',
@@ -34,9 +35,14 @@ export class TasksComponent implements OnInit {
 
   employees: SelectItem[] = new Array();
   customers: SelectItem[] = new Array();
+  projects: SelectItem[] = new Array();
 
   selectedEmployeeId: number;
   selectedCustomerId: number;
+  selectedProjectId: number;
+
+  isCustomersDropdownDisabled: boolean;
+  isProjectsDropdownDisabled: boolean;
 
   private subscriptions = new Subscription();
 
@@ -48,6 +54,8 @@ export class TasksComponent implements OnInit {
   ngOnInit(): void {
     this.employees.push({ label: 'Wszyscy', value: '' });
     this.customers.push({ label: 'Wszyscy', value: '' });
+    this.projects.push({ label: 'Wszyscy', value: '' });
+
     this.dictionaryService
       .getEmployeeNames()
       .subscribe((resp: Array<EmployeeDictionary>) => {
@@ -69,6 +77,21 @@ export class TasksComponent implements OnInit {
           });
         });
       });
+
+    this.dictionaryService
+      .getProjects()
+      .subscribe((resp: Array<ProjectDictionary>) => {
+        resp.forEach((x) => {
+          this.projects.push({
+            label: x.index
+              .concat(' - ')
+              .concat(x.customerName)
+              .concat(' - ')
+              .concat(x.name),
+            value: x.id,
+          });
+        });
+      });
   }
 
   ngOnDestroy(): void {
@@ -78,10 +101,32 @@ export class TasksComponent implements OnInit {
   onShowResultsClick() {
     this.subscriptions.add(
       this.employeeTaskService
-        .getAll(this.selectedEmployeeId, this.selectedCustomerId)
+        .getAll(
+          this.selectedEmployeeId,
+          this.selectedCustomerId,
+          this.selectedProjectId
+        )
         .subscribe((resp: Array<EmployeeTask>) => {
           this.employeeTasks = resp;
         })
     );
+  }
+
+  onProjectsDropdownChange() {
+    if (this.selectedProjectId) {
+      this.isCustomersDropdownDisabled = true;
+      this.selectedCustomerId = null;
+    } else {
+      this.isCustomersDropdownDisabled = false;
+    }
+  }
+
+  onCustomersDropdownChange() {
+    if (this.selectedCustomerId) {
+      this.isProjectsDropdownDisabled = true;
+      this.selectedProjectId = null;
+    } else {
+      this.isProjectsDropdownDisabled = false;
+    }
   }
 }

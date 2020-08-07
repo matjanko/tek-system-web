@@ -13,6 +13,12 @@ export class DictionaryService {
     );
   }
 
+  getProjects() {
+    return this.httpClient.get(
+      'http://192.168.137.148:9090/api/dictionaries/projects'
+    );
+  }
+
   getCustomerNames() {
     return this.httpClient.get(
       'http://192.168.137.148:9090/api/dictionaries/customers/names'

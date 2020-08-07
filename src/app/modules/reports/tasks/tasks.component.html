@@ -12,12 +12,26 @@
         ></p-dropdown>
       </div>
       <div>
+        <span class="pr-2">Projekt:</span>
+        <p-dropdown
+          [options]="projects"
+          [(ngModel)]="selectedProjectId"
+          filter="true"
+          [style]="{ width: '100%' }"
+          [virtualScroll]="true"
+          [disabled]="isProjectsDropdownDisabled"
+          (onChange)="onProjectsDropdownChange()"
+        ></p-dropdown>
+      </div>
+      <div>
         <span class="pr-2">Zleceniodawca:</span>
         <p-dropdown
           [style]="{ width: '100%' }"
           [options]="customers"
           [(ngModel)]="selectedCustomerId"
           filter="true"
+          [disabled]="isCustomersDropdownDisabled"
+          (onChange)="onCustomersDropdownChange()"
         ></p-dropdown>
       </div>
     </div>
