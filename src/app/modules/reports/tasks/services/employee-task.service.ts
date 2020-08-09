@@ -11,7 +11,8 @@ export class EmployeeTaskService {
     employeeId?: number,
     customerId?: number,
     projectId?: number,
-    projectStageId?: number
+    projectStageId?: number,
+    activityCategoryId?: number
   ) {
     let link = 'http://192.168.137.148:9090/api/reports/tasks';
 
@@ -31,7 +32,17 @@ export class EmployeeTaskService {
       link += '&projectStageId=' + projectStageId;
     }
 
-    if (employeeId || customerId || projectId || projectStageId) {
+    if (activityCategoryId) {
+      link += '&activityCategoryId=' + activityCategoryId;
+    }
+
+    if (
+      employeeId ||
+      customerId ||
+      projectId ||
+      projectStageId ||
+      activityCategoryId
+    ) {
       link = link.replace('tasks&', 'tasks?');
     }
 

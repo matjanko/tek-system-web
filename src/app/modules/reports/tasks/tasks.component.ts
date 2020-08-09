@@ -7,6 +7,7 @@ import { DictionaryService } from 'src/app/shared/services/dictionary.service';
 import { EmployeeDictionary } from 'src/app/shared/models/dictionaries/employee-name';
 import { CustomerDictionary } from 'src/app/shared/models/dictionaries/customer-dictionary';
 import { ProjectDictionary } from 'src/app/shared/models/dictionaries/project-dictionary';
+import { ActivityCategoryDictionary } from 'src/app/shared/models/dictionaries/activity-category-dictionary';
 
 @Component({
   selector: 'app-full-report',
@@ -37,14 +38,18 @@ export class TasksComponent implements OnInit {
   customers: SelectItem[] = new Array();
   projects: SelectItem[] = new Array();
   projectStages: SelectItem[] = new Array();
+  activityVategories: SelectItem[] = new Array();
 
   selectedEmployeeId: number;
   selectedCustomerId: number;
   selectedProjectId: number;
   selectedProjectStageId: number;
+  selectedActivityCategoryId: number;
 
   isCustomersDropdownDisabled: boolean;
   isProjectsDropdownDisabled: boolean;
+
+  totalHours: number = 0;
 
   private subscriptions = new Subscription();
 
@@ -106,6 +111,17 @@ export class TasksComponent implements OnInit {
           });
         });
       });
+
+    this.dictionaryService
+      .getActivityCategories()
+      .subscribe((resp: Array<ActivityCategoryDictionary>) => {
+        resp.forEach((x) => {
+          this.activityVategories.push({
+            label: x.name,
+            value: x.id,
+          });
+        });
+      });
   }
 
   ngOnDestroy(): void {
@@ -119,10 +135,15 @@ export class TasksComponent implements OnInit {
           this.selectedEmployeeId,
           this.selectedCustomerId,
           this.selectedProjectId,
-          this.selectedProjectStageId
+          this.selectedProjectStageId,
+          this.selectedActivityCategoryId
         )
         .subscribe((resp: Array<EmployeeTask>) => {
+          this.totalHours = 0;
           this.employeeTasks = resp;
+          this.employeeTasks.forEach((x) => {
+            this.totalHours += x.hours;
+          });
         })
     );
   }

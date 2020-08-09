@@ -43,6 +43,16 @@
         ></p-dropdown>
       </div>
     </div>
+    <div class="col p-0">
+      <div>
+        <span class="pr-2">Kategoria:</span>
+        <p-dropdown
+          [options]="activityVategories"
+          [(ngModel)]="selectedActivityCategoryId"
+          [style]="{ width: '100%' }"
+        ></p-dropdown>
+      </div>
+    </div>
   </div>
   <div class="row mt-3">
     <button mat-raised-button color="primary" (click)="onShowResultsClick()">
@@ -59,6 +69,9 @@
         [rows]="50"
       >
         <ng-template pTemplate="header" let-column>
+          <tr>
+            <th colspan="14">Suma czasu: {{ totalHours | number }} h</th>
+          </tr>
           <tr>
             <th style="width: 150px; min-width: 150px;">
               Pracownik
