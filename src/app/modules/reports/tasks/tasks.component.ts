@@ -38,16 +38,25 @@ export class TasksComponent implements OnInit {
   customers: SelectItem[] = new Array();
   projects: SelectItem[] = new Array();
   projectStages: SelectItem[] = new Array();
-  activityVategories: SelectItem[] = new Array();
+  activityCategories: SelectItem[] = new Array();
+  activitySubcategories: SelectItem[] = new Array();
+  activityElements: SelectItem[] = new Array();
+  softwares: SelectItem[] = new Array();
 
   selectedEmployeeId: number;
   selectedCustomerId: number;
   selectedProjectId: number;
   selectedProjectStageId: number;
   selectedActivityCategoryId: number;
+  selectedActivitySubcategoryId: number;
+  selectedActivityElementId: number;
+  selectedSoftwaresId: number;
 
   isCustomersDropdownDisabled: boolean;
   isProjectsDropdownDisabled: boolean;
+  isActivitySubcategoriesDropdownDisabled: boolean = true;
+  isActivityElementsDropdownDisabled: boolean = true;
+  isSoftwareDropdownDisabled: boolean = true;
 
   totalHours: number = 0;
 
@@ -63,6 +72,7 @@ export class TasksComponent implements OnInit {
     this.customers.push({ label: 'Wszyscy', value: '' });
     this.projects.push({ label: 'Wszystkie', value: '' });
     this.projectStages.push({ label: 'Wszystkie', value: '' });
+    this.activityCategories.push({ label: 'Wszystkie', value: '' });
 
     this.dictionaryService
       .getEmployeeNames()
@@ -116,7 +126,7 @@ export class TasksComponent implements OnInit {
       .getActivityCategories()
       .subscribe((resp: Array<ActivityCategoryDictionary>) => {
         resp.forEach((x) => {
-          this.activityVategories.push({
+          this.activityCategories.push({
             label: x.name,
             value: x.id,
           });
