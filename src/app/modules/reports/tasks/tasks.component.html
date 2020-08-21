@@ -50,6 +50,7 @@
           [options]="activityCategories"
           [(ngModel)]="selectedActivityCategoryId"
           [style]="{ width: '100%' }"
+          (onChange)="onActivityCategoriesDropdownChange()"
         ></p-dropdown>
       </div>
       <div>

@@ -8,6 +8,7 @@ import { EmployeeDictionary } from 'src/app/shared/models/dictionaries/employee-
 import { CustomerDictionary } from 'src/app/shared/models/dictionaries/customer-dictionary';
 import { ProjectDictionary } from 'src/app/shared/models/dictionaries/project-dictionary';
 import { ActivityCategoryDictionary } from 'src/app/shared/models/dictionaries/activity-category-dictionary';
+import { ActivitySubcategoryDictionary } from 'src/app/shared/models/dictionaries/activity-subcategory-dictionary';
 
 @Component({
   selector: 'app-full-report',
@@ -146,7 +147,8 @@ export class TasksComponent implements OnInit {
           this.selectedCustomerId,
           this.selectedProjectId,
           this.selectedProjectStageId,
-          this.selectedActivityCategoryId
+          this.selectedActivityCategoryId,
+          this.selectedActivitySubcategoryId
         )
         .subscribe((resp: Array<EmployeeTask>) => {
           this.totalHours = 0;
@@ -173,6 +175,33 @@ export class TasksComponent implements OnInit {
       this.selectedProjectId = null;
     } else {
       this.isProjectsDropdownDisabled = false;
+    }
+  }
+
+  onActivityCategoriesDropdownChange() {
+    if (this.selectedActivityCategoryId) {
+      this.isActivitySubcategoriesDropdownDisabled = false;
+      this.dictionaryService
+        .getActivitySubcategories(this.selectedActivityCategoryId)
+        .subscribe((resp: Array<ActivitySubcategoryDictionary>) => {
+          this.activitySubcategories = [];
+          this.selectedActivitySubcategoryId = null;
+          if (resp.length > 0) {
+            this.activitySubcategories.push({ label: 'Wszystkie', value: '' });
+            resp.forEach((x) => {
+              this.activitySubcategories.push({
+                label: x.name,
+                value: x.id,
+              });
+            });
+          } else {
+            this.isActivitySubcategoriesDropdownDisabled = true;
+          }
+        });
+    } else {
+      this.selectedActivitySubcategoryId = null;
+      this.activitySubcategories = [];
+      this.isActivitySubcategoriesDropdownDisabled = true;
     }
   }
 }
