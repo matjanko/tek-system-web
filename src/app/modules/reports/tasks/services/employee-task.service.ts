@@ -7,18 +7,54 @@ import { HttpClient } from '@angular/common/http';
 export class EmployeeTaskService {
   constructor(private httpClient: HttpClient) {}
 
-  getAll(employeeId?: number, customerId?: number) {
+  getAll(
+    employeeId?: number,
+    customerId?: number,
+    projectId?: number,
+    projectStageId?: number,
+    activityCategoryId?: number,
+    activitySubcategoryId?: number,
+    activityElementId?: number
+  ) {
     let link = 'http://192.168.137.148:9090/api/reports/tasks';
 
     if (employeeId) {
       link += '&employeeId=' + employeeId;
     }
 
+    if (projectId) {
+      link += '&projectId=' + projectId;
+    }
+
     if (customerId) {
       link += '&customerId=' + customerId;
     }
 
-    if (employeeId || customerId) {
+    if (projectStageId) {
+      link += '&projectStageId=' + projectStageId;
+    }
+
+    if (activityCategoryId) {
+      link += '&activityCategoryId=' + activityCategoryId;
+    }
+
+    if (activitySubcategoryId) {
+      link += '&activitySubcategoryId=' + activitySubcategoryId;
+    }
+
+    if (activityElementId) {
+      link += '&activityElementId=' + activityElementId;
+    }
+
+    if (
+      employeeId ||
+      customerId ||
+      projectId ||
+      projectStageId ||
+      activityCategoryId ||
+      activitySubcategoryId ||
+      activityElementId
+    ) {
       link = link.replace('tasks&', 'tasks?');
     }
 

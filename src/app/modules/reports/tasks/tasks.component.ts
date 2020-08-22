@@ -6,6 +6,10 @@ import { LazyLoadEvent, SelectItem } from 'primeng/api';
 import { DictionaryService } from 'src/app/shared/services/dictionary.service';
 import { EmployeeDictionary } from 'src/app/shared/models/dictionaries/employee-name';
 import { CustomerDictionary } from 'src/app/shared/models/dictionaries/customer-dictionary';
+import { ProjectDictionary } from 'src/app/shared/models/dictionaries/project-dictionary';
+import { ActivityCategoryDictionary } from 'src/app/shared/models/dictionaries/activity-category-dictionary';
+import { ActivitySubcategoryDictionary } from 'src/app/shared/models/dictionaries/activity-subcategory-dictionary';
+import { ActivityElementDictionary } from 'src/app/shared/models/dictionaries/activity-element-dictionary';
 
 @Component({
   selector: 'app-full-report',
@@ -34,9 +38,29 @@ export class TasksComponent implements OnInit {
 
   employees: SelectItem[] = new Array();
   customers: SelectItem[] = new Array();
+  projects: SelectItem[] = new Array();
+  projectStages: SelectItem[] = new Array();
+  activityCategories: SelectItem[] = new Array();
+  activitySubcategories: SelectItem[] = new Array();
+  activityElements: SelectItem[] = new Array();
+  softwares: SelectItem[] = new Array();
 
   selectedEmployeeId: number;
   selectedCustomerId: number;
+  selectedProjectId: number;
+  selectedProjectStageId: number;
+  selectedActivityCategoryId: number;
+  selectedActivitySubcategoryId: number;
+  selectedActivityElementId: number;
+  selectedSoftwaresId: number;
+
+  isCustomersDropdownDisabled: boolean;
+  isProjectsDropdownDisabled: boolean;
+  isActivitySubcategoriesDropdownDisabled: boolean = true;
+  isActivityElementsDropdownDisabled: boolean = true;
+  isSoftwareDropdownDisabled: boolean = true;
+
+  totalHours: number = 0;
 
   private subscriptions = new Subscription();
 
@@ -48,6 +72,10 @@ export class TasksComponent implements OnInit {
   ngOnInit(): void {
     this.employees.push({ label: 'Wszyscy', value: '' });
     this.customers.push({ label: 'Wszyscy', value: '' });
+    this.projects.push({ label: 'Wszystkie', value: '' });
+    this.projectStages.push({ label: 'Wszystkie', value: '' });
+    this.activityCategories.push({ label: 'Wszystkie', value: '' });
+
     this.dictionaryService
       .getEmployeeNames()
       .subscribe((resp: Array<EmployeeDictionary>) => {
@@ -69,6 +97,43 @@ export class TasksComponent implements OnInit {
           });
         });
       });
+
+    this.dictionaryService
+      .getProjects()
+      .subscribe((resp: Array<ProjectDictionary>) => {
+        resp.forEach((x) => {
+          this.projects.push({
+            label: x.index
+              .concat(' - ')
+              .concat(x.customerName)
+              .concat(' - ')
+              .concat(x.name),
+            value: x.id,
+          });
+        });
+      });
+
+    this.dictionaryService
+      .getProjectStages()
+      .subscribe((resp: Array<CustomerDictionary>) => {
+        resp.forEach((x) => {
+          this.projectStages.push({
+            label: x.name,
+            value: x.id,
+          });
+        });
+      });
+
+    this.dictionaryService
+      .getActivityCategories()
+      .subscribe((resp: Array<ActivityCategoryDictionary>) => {
+        resp.forEach((x) => {
+          this.activityCategories.push({
+            label: x.name,
+            value: x.id,
+          });
+        });
+      });
   }
 
   ngOnDestroy(): void {
@@ -78,10 +143,98 @@ export class TasksComponent implements OnInit {
   onShowResultsClick() {
     this.subscriptions.add(
       this.employeeTaskService
-        .getAll(this.selectedEmployeeId, this.selectedCustomerId)
+        .getAll(
+          this.selectedEmployeeId,
+          this.selectedCustomerId,
+          this.selectedProjectId,
+          this.selectedProjectStageId,
+          this.selectedActivityCategoryId,
+          this.selectedActivitySubcategoryId,
+          this.selectedActivityElementId
+        )
         .subscribe((resp: Array<EmployeeTask>) => {
+          this.totalHours = 0;
           this.employeeTasks = resp;
+          this.employeeTasks.forEach((x) => {
+            this.totalHours += x.hours;
+          });
         })
     );
+  }
+
+  onProjectsDropdownChange() {
+    if (this.selectedProjectId) {
+      this.isCustomersDropdownDisabled = true;
+      this.selectedCustomerId = null;
+    } else {
+      this.isCustomersDropdownDisabled = false;
+    }
+  }
+
+  onCustomersDropdownChange() {
+    if (this.selectedCustomerId) {
+      this.isProjectsDropdownDisabled = true;
+      this.selectedProjectId = null;
+    } else {
+      this.isProjectsDropdownDisabled = false;
+    }
+  }
+
+  onActivityCategoriesDropdownChange() {
+    if (this.selectedActivityCategoryId) {
+      this.isActivitySubcategoriesDropdownDisabled = false;
+      this.dictionaryService
+        .getActivitySubcategories(this.selectedActivityCategoryId)
+        .subscribe((resp: Array<ActivitySubcategoryDictionary>) => {
+          this.activitySubcategories = [];
+          this.selectedActivitySubcategoryId = null;
+          if (resp?.length > 0) {
+            this.activitySubcategories.push({ label: 'Wszystkie', value: '' });
+            resp.forEach((x) => {
+              this.activitySubcategories.push({
+                label: x.name,
+                value: x.id,
+              });
+            });
+          } else {
+            this.isActivitySubcategoriesDropdownDisabled = true;
+          }
+        });
+    } else {
+      this.selectedActivitySubcategoryId = null;
+      this.activitySubcategories = [];
+      this.activityElements = [];
+      this.softwares = [];
+      this.isActivitySubcategoriesDropdownDisabled = true;
+      this.isActivityElementsDropdownDisabled = true;
+      this.isSoftwareDropdownDisabled = true;
+    }
+  }
+
+  onActivitySubcategoriesDropdownChange() {
+    if (this.selectedActivitySubcategoryId) {
+      this.isActivityElementsDropdownDisabled = false;
+      this.dictionaryService
+        .getActivityElements(this.selectedActivitySubcategoryId)
+        .subscribe((resp: Array<ActivityElementDictionary>) => {
+          this.activityElements = [];
+          this.selectedActivityElementId = null;
+          if (resp?.length > 0) {
+            this.activityElements.push({ label: 'Wszystkie', value: '' });
+            resp.forEach((x) => {
+              this.activityElements.push({
+                label: x.name,
+                value: x.id,
+              });
+            });
+          } else {
+            this.isActivityElementsDropdownDisabled = true;
+          }
+        });
+    } else {
+      this.selectedActivityElementId = null;
+      this.activityElements = [];
+      this.isActivityElementsDropdownDisabled = true;
+    }
   }
 }
