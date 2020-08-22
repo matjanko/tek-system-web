@@ -9,6 +9,7 @@ import { CustomerDictionary } from 'src/app/shared/models/dictionaries/customer-
 import { ProjectDictionary } from 'src/app/shared/models/dictionaries/project-dictionary';
 import { ActivityCategoryDictionary } from 'src/app/shared/models/dictionaries/activity-category-dictionary';
 import { ActivitySubcategoryDictionary } from 'src/app/shared/models/dictionaries/activity-subcategory-dictionary';
+import { ActivityElementDictionary } from 'src/app/shared/models/dictionaries/activity-element-dictionary';
 
 @Component({
   selector: 'app-full-report',
@@ -148,7 +149,8 @@ export class TasksComponent implements OnInit {
           this.selectedProjectId,
           this.selectedProjectStageId,
           this.selectedActivityCategoryId,
-          this.selectedActivitySubcategoryId
+          this.selectedActivitySubcategoryId,
+          this.selectedActivityElementId
         )
         .subscribe((resp: Array<EmployeeTask>) => {
           this.totalHours = 0;
@@ -186,7 +188,7 @@ export class TasksComponent implements OnInit {
         .subscribe((resp: Array<ActivitySubcategoryDictionary>) => {
           this.activitySubcategories = [];
           this.selectedActivitySubcategoryId = null;
-          if (resp.length > 0) {
+          if (resp?.length > 0) {
             this.activitySubcategories.push({ label: 'Wszystkie', value: '' });
             resp.forEach((x) => {
               this.activitySubcategories.push({
@@ -201,7 +203,38 @@ export class TasksComponent implements OnInit {
     } else {
       this.selectedActivitySubcategoryId = null;
       this.activitySubcategories = [];
+      this.activityElements = [];
+      this.softwares = [];
       this.isActivitySubcategoriesDropdownDisabled = true;
+      this.isActivityElementsDropdownDisabled = true;
+      this.isSoftwareDropdownDisabled = true;
+    }
+  }
+
+  onActivitySubcategoriesDropdownChange() {
+    if (this.selectedActivitySubcategoryId) {
+      this.isActivityElementsDropdownDisabled = false;
+      this.dictionaryService
+        .getActivityElements(this.selectedActivitySubcategoryId)
+        .subscribe((resp: Array<ActivityElementDictionary>) => {
+          this.activityElements = [];
+          this.selectedActivityElementId = null;
+          if (resp?.length > 0) {
+            this.activityElements.push({ label: 'Wszystkie', value: '' });
+            resp.forEach((x) => {
+              this.activityElements.push({
+                label: x.name,
+                value: x.id,
+              });
+            });
+          } else {
+            this.isActivityElementsDropdownDisabled = true;
+          }
+        });
+    } else {
+      this.selectedActivityElementId = null;
+      this.activityElements = [];
+      this.isActivityElementsDropdownDisabled = true;
     }
   }
 }

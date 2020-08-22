@@ -60,6 +60,7 @@
           [(ngModel)]="selectedActivitySubcategoryId"
           [style]="{ width: '100%' }"
           [disabled]="isActivitySubcategoriesDropdownDisabled"
+          (onChange)="onActivitySubcategoriesDropdownChange()"
         ></p-dropdown>
       </div>
       <div>
