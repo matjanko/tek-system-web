@@ -82,7 +82,36 @@
         ></p-dropdown>
       </div>
     </div>
-    <div class="col-lg-4 pl-0 pr-5"></div>
+    <div class="col-lg-4 pl-0 pr-5">
+      <div>
+        <span class="pr-2">Czas startu:</span>
+        <p-calendar
+          [style]="{ width: '100%' }"
+          [inputStyle]="{ width: '100%' }"
+          [maxDate]="maxDate"
+          [(ngModel)]="selectedStartTime"
+          (ngModelChange)="onSelectedStartTimeChanged($event)"
+        ></p-calendar>
+      </div>
+      <div>
+        <span class="pr-2">Czas końca:</span>
+        <p-calendar
+          [style]="{ width: '100%' }"
+          [inputStyle]="{ width: '100%' }"
+          [minDate]="minDate"
+          [(ngModel)]="selectedEndTime"
+          (ngModelChange)="onSelectedEndTimeChanged($event)"
+        ></p-calendar>
+      </div>
+      <div>
+        <span class="pr-2">Koszty:</span>
+        <p-checkbox [(ngModel)]="isAddCost" [binary]="true"> </p-checkbox>
+      </div>
+      <div>
+        <span class="pr-2">Błędy:</span>
+        <p-checkbox [(ngModel)]="isMistake" [binary]="true"> </p-checkbox>
+      </div>
+    </div>
   </div>
   <div class="row mt-3">
     <button mat-raised-button color="primary" (click)="onShowResultsClick()">
@@ -103,89 +132,61 @@
             <th colspan="14">Suma czasu: {{ totalHours | number }} h</th>
           </tr>
           <tr>
-            <th style="width: 150px; min-width: 150px;">
-              Pracownik
-            </th>
-            <th style="width: 120px; min-width: 120px;">
-              Nr projektu
-            </th>
-            <th style="width: 150px; min-width: 150px;">
-              Zleceniodawca
-            </th>
-            <th style="width: 150px; min-width: 150px;">
-              Nazwa projektu
-            </th>
-            <th style="width: 150px; min-width: 150px;">
-              Stadium projektu
-            </th>
-            <th style="width: 150px; min-width: 150px;">
-              Kategoria
-            </th>
-            <th style="width: 150px; min-width: 150px;">
-              Podkategoria
-            </th>
-            <th style="width: 150px; min-width: 150px;">
-              Element
-            </th>
-            <th style="width: 100px; min-width: 100px;">
-              Program
-            </th>
-            <th style="width: 100px; min-width: 100px;">
-              Koszty
-            </th>
-            <th style="width: 100px; min-width: 100px;">
-              Błędy
-            </th>
-            <th style="width: 120px; min-width: 120px;">
-              Czas startu
-            </th>
-            <th style="width: 120px; min-width: 120px;">
-              Czas końca
-            </th>
-            <th rowspan="2">
-              Godziny
-            </th>
+            <th style="width: 150px; min-width: 150px">Pracownik</th>
+            <th style="width: 120px; min-width: 120px">Nr projektu</th>
+            <th style="width: 150px; min-width: 150px">Zleceniodawca</th>
+            <th style="width: 150px; min-width: 150px">Nazwa projektu</th>
+            <th style="width: 150px; min-width: 150px">Stadium projektu</th>
+            <th style="width: 150px; min-width: 150px">Kategoria</th>
+            <th style="width: 150px; min-width: 150px">Podkategoria</th>
+            <th style="width: 150px; min-width: 150px">Element</th>
+            <th style="width: 100px; min-width: 100px">Program</th>
+            <th style="width: 100px; min-width: 100px">Koszty</th>
+            <th style="width: 100px; min-width: 100px">Błędy</th>
+            <th style="width: 120px; min-width: 120px">Czas startu</th>
+            <th style="width: 120px; min-width: 120px">Czas końca</th>
+            <th rowspan="2">Godziny</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-employeeTask>
           <tr>
-            <td style="width: 150px; min-width: 150px;">
+            <td style="width: 150px; min-width: 150px">
               {{ employeeTask?.employeeName }}
             </td>
-            <td style="width: 120px; min-width: 120px;">
+            <td style="width: 120px; min-width: 120px">
               {{ employeeTask?.projectNumber }}
             </td>
-            <td style="width: 150px; min-width: 150px;">
+            <td style="width: 150px; min-width: 150px">
               {{ employeeTask?.customerName }}
             </td>
-            <td style="width: 150px; min-width: 150px;">
+            <td style="width: 150px; min-width: 150px">
               {{ employeeTask?.projectName }}
             </td>
-            <td style="width: 150px; min-width: 150px;">
+            <td style="width: 150px; min-width: 150px">
               {{ employeeTask?.projectStageName }}
             </td>
-            <td style="width: 150px; min-width: 150px;">
+            <td style="width: 150px; min-width: 150px">
               {{ employeeTask?.firstActivity }}
             </td>
-            <td style="width: 150px; min-width: 150px;">
+            <td style="width: 150px; min-width: 150px">
               {{ employeeTask?.secondActivity }}
             </td>
-            <td style="width: 150px; min-width: 150px;">
+            <td style="width: 150px; min-width: 150px">
               {{ employeeTask?.thirdActivity }}
             </td>
-            <td style="width: 100px; min-width: 100px;">
+            <td style="width: 100px; min-width: 100px">
               {{ employeeTask?.software }}
             </td>
-            <td style="width: 100px; min-width: 100px;">
+            <td style="width: 100px; min-width: 100px">
               {{ employeeTask?.isAdditionalCost }}
             </td>
-            <td style="width: 100px; min-width: 100px;">
+            <td style="width: 100px; min-width: 100px">
               {{ employeeTask?.isMistake }}
             </td>
-            <td style="width: 120px; min-width: 120px;">
+            <td style="width: 120px; min-width: 120px">
               {{ employeeTask?.startTime.replace("T", " ") }}
             </td>
-            <td style="width: 120px; min-width: 120px;">
+            <td style="width: 120px; min-width: 120px">
               {{ employeeTask?.endTime.replace("T", " ") }}
             </td>
             <td>
@@ -194,7 +195,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="loadingbody" let-columns="columns">
-          <tr style="height: 34px;">
+          <tr style="height: 34px">
             <td *ngFor="let col of columns">
               <div class="loading-text"></div>
             </td>

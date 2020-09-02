@@ -6,6 +6,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [],
@@ -17,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
     CalendarModule,
     ToolbarModule,
     ButtonModule,
+    CheckboxModule,
   ],
 })
 export class PrimeNGModule {}

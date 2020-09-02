@@ -14,36 +14,38 @@ export class EmployeeTaskService {
     projectStageId?: number,
     activityCategoryId?: number,
     activitySubcategoryId?: number,
-    activityElementId?: number
+    activityElementId?: number,
+    isAddCost?: boolean,
+    isMistake?: boolean
   ) {
     let link = 'http://192.168.137.148:9090/api/reports/tasks';
 
     if (employeeId) {
       link += '&employeeId=' + employeeId;
     }
-
     if (projectId) {
       link += '&projectId=' + projectId;
     }
-
     if (customerId) {
       link += '&customerId=' + customerId;
     }
-
     if (projectStageId) {
       link += '&projectStageId=' + projectStageId;
     }
-
     if (activityCategoryId) {
       link += '&activityCategoryId=' + activityCategoryId;
     }
-
     if (activitySubcategoryId) {
       link += '&activitySubcategoryId=' + activitySubcategoryId;
     }
-
     if (activityElementId) {
       link += '&activityElementId=' + activityElementId;
+    }
+    if (isAddCost) {
+      link += '&isAddCost=' + isAddCost;
+    }
+    if (isMistake) {
+      link += '&isMistake=' + isMistake;
     }
 
     if (
@@ -53,7 +55,9 @@ export class EmployeeTaskService {
       projectStageId ||
       activityCategoryId ||
       activitySubcategoryId ||
-      activityElementId
+      activityElementId ||
+      isAddCost ||
+      isMistake
     ) {
       link = link.replace('tasks&', 'tasks?');
     }

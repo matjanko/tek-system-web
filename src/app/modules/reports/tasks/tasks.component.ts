@@ -10,6 +10,8 @@ import { ProjectDictionary } from 'src/app/shared/models/dictionaries/project-di
 import { ActivityCategoryDictionary } from 'src/app/shared/models/dictionaries/activity-category-dictionary';
 import { ActivitySubcategoryDictionary } from 'src/app/shared/models/dictionaries/activity-subcategory-dictionary';
 import { ActivityElementDictionary } from 'src/app/shared/models/dictionaries/activity-element-dictionary';
+import { Data } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-full-report',
@@ -53,6 +55,10 @@ export class TasksComponent implements OnInit {
   selectedActivitySubcategoryId: number;
   selectedActivityElementId: number;
   selectedSoftwaresId: number;
+  isMistake: boolean;
+  isAddCost: boolean;
+  selectedStartTime: Date;
+  selectedEndTime: Date;
 
   isCustomersDropdownDisabled: boolean;
   isProjectsDropdownDisabled: boolean;
@@ -61,6 +67,8 @@ export class TasksComponent implements OnInit {
   isSoftwareDropdownDisabled: boolean = true;
 
   totalHours: number = 0;
+  minDate: Date;
+  maxDate: Date;
 
   private subscriptions = new Subscription();
 
@@ -150,7 +158,9 @@ export class TasksComponent implements OnInit {
           this.selectedProjectStageId,
           this.selectedActivityCategoryId,
           this.selectedActivitySubcategoryId,
-          this.selectedActivityElementId
+          this.selectedActivityElementId,
+          this.isAddCost,
+          this.isMistake
         )
         .subscribe((resp: Array<EmployeeTask>) => {
           this.totalHours = 0;
@@ -236,5 +246,13 @@ export class TasksComponent implements OnInit {
       this.activityElements = [];
       this.isActivityElementsDropdownDisabled = true;
     }
+  }
+
+  onSelectedStartTimeChanged(event: Date) {
+    this.minDate = event ?? null;
+  }
+
+  onSelectedEndTimeChanged(event: Date) {
+    this.maxDate = event ?? null;
   }
 }
