@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,9 @@ export class EmployeeTaskService {
     activitySubcategoryId?: number,
     activityElementId?: number,
     isAddCost?: boolean,
-    isMistake?: boolean
+    isMistake?: boolean,
+    dateFrom?: Date,
+    dateTo?: Date
   ) {
     let link = 'http://192.168.137.148:9090/api/reports/tasks';
 
@@ -47,6 +50,14 @@ export class EmployeeTaskService {
     if (isMistake) {
       link += '&isMistake=' + isMistake;
     }
+    if (dateFrom) {
+      link += '&startTime=' + moment(dateFrom).format('YYYY-MM-DD');
+    }
+    if (dateTo) {
+      link +=
+        '&endTime=' +
+        moment(dateTo.setDate(dateTo.getDate() + 1)).format('YYYY-MM-DD');
+    }
 
     if (
       employeeId ||
@@ -57,7 +68,9 @@ export class EmployeeTaskService {
       activitySubcategoryId ||
       activityElementId ||
       isAddCost ||
-      isMistake
+      isMistake ||
+      dateFrom ||
+      dateTo
     ) {
       link = link.replace('tasks&', 'tasks?');
     }

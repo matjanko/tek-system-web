@@ -1,7 +1,7 @@
 <app-page-title title="Zadania pracowników"></app-page-title>
 <div class="container-fluid">
   <div class="row filter-row">
-    <div class="col-lg-4 pl-0 mr-5">
+    <div class="col-lg-3 pl-0 mr-5">
       <div>
         <span class="pr-2">Pracownik:</span>
         <p-dropdown
@@ -43,7 +43,7 @@
         ></p-dropdown>
       </div>
     </div>
-    <div class="col-lg-4 pl-0 mr-5">
+    <div class="col-lg-3 pl-0 mr-5">
       <div>
         <span class="pr-2">Kategoria:</span>
         <p-dropdown
@@ -82,9 +82,9 @@
         ></p-dropdown>
       </div>
     </div>
-    <div class="col-lg-4 pl-0 pr-5">
+    <div class="col-lg-3 pl-0 mr-5">
       <div>
-        <span class="pr-2">Czas startu:</span>
+        <span class="pr-2">Data od:</span>
         <p-calendar
           [style]="{ width: '100%' }"
           [inputStyle]="{ width: '100%' }"
@@ -94,7 +94,7 @@
         ></p-calendar>
       </div>
       <div>
-        <span class="pr-2">Czas końca:</span>
+        <span class="pr-2">Data do:</span>
         <p-calendar
           [style]="{ width: '100%' }"
           [inputStyle]="{ width: '100%' }"
@@ -103,13 +103,17 @@
           (ngModelChange)="onSelectedEndTimeChanged($event)"
         ></p-calendar>
       </div>
-      <div>
-        <span class="pr-2">Koszty:</span>
-        <p-checkbox [(ngModel)]="isAddCost" [binary]="true"> </p-checkbox>
-      </div>
-      <div>
-        <span class="pr-2">Błędy:</span>
-        <p-checkbox [(ngModel)]="isMistake" [binary]="true"> </p-checkbox>
+    </div>
+    <div class="col-lg-3 pl-0 mr-5">
+      <div class="row">
+        <div class="col">
+          <span class="pr-2">Koszty:</span>
+          <p-checkbox [(ngModel)]="isAddCost" [binary]="true"> </p-checkbox>
+        </div>
+        <div class="col">
+          <span class="pr-2">Błędy:</span>
+          <p-checkbox [(ngModel)]="isMistake" [binary]="true"> </p-checkbox>
+        </div>
       </div>
     </div>
   </div>

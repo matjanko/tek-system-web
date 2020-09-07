@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EmployeeTaskService } from './services/employee-task.service';
 import { EmployeeTask } from './models/employee-task';
-import { LazyLoadEvent, SelectItem } from 'primeng/api';
+import { SelectItem } from 'primeng/api';
 import { DictionaryService } from 'src/app/shared/services/dictionary.service';
 import { EmployeeDictionary } from 'src/app/shared/models/dictionaries/employee-name';
 import { CustomerDictionary } from 'src/app/shared/models/dictionaries/customer-dictionary';
@@ -10,8 +10,6 @@ import { ProjectDictionary } from 'src/app/shared/models/dictionaries/project-di
 import { ActivityCategoryDictionary } from 'src/app/shared/models/dictionaries/activity-category-dictionary';
 import { ActivitySubcategoryDictionary } from 'src/app/shared/models/dictionaries/activity-subcategory-dictionary';
 import { ActivityElementDictionary } from 'src/app/shared/models/dictionaries/activity-element-dictionary';
-import { Data } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-full-report',
@@ -160,7 +158,9 @@ export class TasksComponent implements OnInit {
           this.selectedActivitySubcategoryId,
           this.selectedActivityElementId,
           this.isAddCost,
-          this.isMistake
+          this.isMistake,
+          this.selectedStartTime,
+          this.selectedEndTime
         )
         .subscribe((resp: Array<EmployeeTask>) => {
           this.totalHours = 0;
